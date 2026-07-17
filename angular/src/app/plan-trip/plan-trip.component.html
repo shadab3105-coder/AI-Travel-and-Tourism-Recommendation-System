@@ -1,0 +1,232 @@
+<!-- <div class="trip-container">
+
+    <h1>AI Travel Itinerary Planner</h1>
+
+    <div class="form-box">
+
+        <label>Enter City</label>
+
+        <input [(ngModel)]="city" placeholder="Example: Goa, Ayodhya, Manali">
+
+        <label>Enter Interests</label>
+
+        <input [(ngModel)]="interests" placeholder="Temple, Food, Adventure, Beaches">
+
+        <div class="buttons">
+
+            <button (click)="clearForm()">
+                Clear
+            </button>
+
+            <button (click)="generateTrip()">
+                Generate Plan
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="result-box">
+
+        <div *ngIf="loading">
+            Generating AI itinerary...
+        </div>
+
+        <div *ngIf="itinerary">
+
+            <h3>Your Travel Plan</h3>
+
+            <pre>{{ itinerary }}</pre>
+
+        </div>
+
+    </div>
+
+</div> -->
+<!-- ************************************************************* -->
+<!-- <div class="planner-wrapper">
+
+    
+    <div class="header-section">
+        <h1>AI TRAVEL ITINERARY PLANNER</h1>
+        <p>Plan your perfect trip in seconds with AI</p>
+    </div>
+
+    
+    <div class="planner-card">
+
+        <div class="planner-title">
+            <h2>📍 Plan Your Trip</h2>
+            <p>Enter your preferences and let AI create the perfect itinerary for you</p>
+        </div>
+
+
+        <div class="input-group">
+            <label>🏙 Enter City</label>
+            <input [(ngModel)]="city" type="text" placeholder="Example: Goa, Ayodhya, Manali">
+        </div>
+
+        
+        <div class="input-group">
+            <label>❤️ Enter Interests</label>
+            <input [(ngModel)]="interests" type="text" placeholder="Temple, Food, Adventure, Beaches">
+        </div>
+
+    
+        <div class="button-group">
+
+            <button class="clear-btn" (click)="clearForm()">
+                ↻ Clear
+            </button>
+
+            <button class="generate-btn" (click)="generateTrip()">
+                ✨ Generate Plan
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="result-card">
+
+        <div *ngIf="loading" class="loading">
+            Generating your AI travel plan...
+        </div>
+
+        <div *ngIf="itinerary">
+
+            <h3>🗺 Your AI Itinerary</h3>
+
+            <div class="itinerary-box">
+                <pre>{{ itinerary }}</pre>
+            </div>
+
+        </div>
+
+        <div *ngIf="!itinerary && !loading" class="empty-state">
+            <h3>Your AI Itinerary</h3>
+            <p>Your personalized travel plan will appear here after you generate it.</p>
+        </div>
+
+    </div>
+
+</div> -->
+
+<div class="planner-wrapper">
+
+    <!-- Hero -->
+    <div class="hero-section">
+        <h1>AI Travel Itinerary Planner</h1>
+        <p>Create personalized travel plans powered by Artificial Intelligence</p>
+    </div>
+
+    <!-- Planner Card -->
+    <div class="planner-card">
+
+        <div class="planner-title">
+            <div>
+                <h2><i class="bi bi-stars"></i> Plan Your Trip</h2>
+                <p>Tell us where you want to go and what you love.</p>
+            </div>
+        </div>
+
+        <div class="planner-grid">
+
+            <div class="input-group">
+                <label>
+                    <i class="bi bi-geo-alt-fill"></i>
+                    Destination
+                </label>
+
+                <input [(ngModel)]="city" type="text" placeholder="Goa, Manali, Kolkata, Ayodhya">
+            </div>
+
+            <div class="input-group">
+                <label>
+                    <i class="bi bi-heart-fill"></i>
+                    Interests
+                </label>
+
+                <input [(ngModel)]="interests" type="text" placeholder="Adventure, Food, Beaches, Temple">
+            </div>
+
+        </div>
+
+        <div class="button-group">
+
+            <button class="clear-btn" (click)="clearForm()">
+                <i class="bi bi-arrow-clockwise"></i>
+                Clear
+            </button>
+
+            <button class="generate-btn" (click)="generateTrip()">
+                <i class="bi bi-stars"></i>
+                Generate AI Plan
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Result -->
+
+    <div class="result-card">
+
+        <div *ngIf="loading" class="loading-box">
+
+            <div class="spinner-border text-primary"></div>
+
+            <h3>Generating Your AI Itinerary...</h3>
+
+            <p>Please wait a few seconds.</p>
+
+        </div>
+
+        <ng-container *ngIf="!loading">
+
+            <div *ngIf="itinerary">
+
+                <div class="result-header">
+
+                    <div>
+                        <h3>
+                            <i class="bi bi-map-fill"></i>
+                            Your AI Travel Plan
+                        </h3>
+
+                        <p>Customized itinerary generated for you.</p>
+
+                    </div>
+
+                    <span class="ai-badge">
+                        AI Generated
+                    </span>
+
+                </div>
+
+                <div class="itinerary-box">
+                    <pre>{{ itinerary }}</pre>
+                </div>
+
+            </div>
+
+            <div *ngIf="!itinerary" class="empty-state">
+
+                <i class="bi bi-map display-3"></i>
+
+                <h3>No Itinerary Yet</h3>
+
+                <p>
+                    Fill in your destination and interests,
+                    then click <strong>Generate AI Plan</strong>.
+                </p>
+
+            </div>
+
+        </ng-container>
+
+    </div>
+
+</div>

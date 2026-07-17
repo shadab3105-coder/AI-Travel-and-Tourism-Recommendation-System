@@ -1,0 +1,110 @@
+<div class="container">
+  <h2 class="animate__animated animate__fadeInDown">Find Your Perfect Stay</h2>
+
+  <div class="search-card animate__animated animate__fadeInUp">
+    <h5 class="card-title"><i class="bi bi-search"></i> Search Hotels</h5>
+    
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label>Destination</label>
+        <input type="text" class="form-control" placeholder="Where are you going?"
+               [(ngModel)]="searchQuery" (keyup.enter)="searchHotels()">
+      </div>
+      <div class="col-md-2">
+        <label>Check-in</label>
+        <input type="date" class="form-control" [(ngModel)]="checkInDate">
+      </div>
+      <div class="col-md-2">
+        <label>Check-out</label>
+        <input type="date" class="form-control" [(ngModel)]="checkOutDate">
+      </div>
+      <div class="col-md-2">
+        <label>Guests</label>
+        <select class="form-select" [(ngModel)]="guests">
+          <option>1 Guest</option>
+          <option>2 Guests</option>
+          <option>3 Guests</option>
+          <option>4+ Guests</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-primary w-100" (click)="searchHotels()">
+          <i class="bi bi-search"></i> Search
+        </button>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-2 border-top pt-3">
+      <div class="col-md-3">
+        <label>Min Rating</label>
+        <select class="form-select" [(ngModel)]="minRating" (ngModelChange)="applyFilters()">
+          <option value="">Any Rating</option>
+          <option value="4.5">4.5+ Excellent</option>
+          <option value="4">4+ Very Good</option>
+          <option value="3.5">3.5+ Good</option>
+          <option value="3">3+ Average</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label>Price Level</label>
+        <select class="form-select" [(ngModel)]="priceLevel" (ngModelChange)="applyFilters()">
+          <option value="">Any Price</option>
+          <option value="1">Budget ($)</option>
+          <option value="2">Moderate ($$)</option>
+          <option value="3">Expensive ($$$)</option>
+          <option value="4">Luxury ($$$$)</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label>Sort By</label>
+        <select class="form-select" [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+          <option value="rating">Rating (High to Low)</option>
+          <option value="distance">Distance (Nearest)</option>
+          <option value="name">Name (A-Z)</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+          <i class="bi bi-x-circle"></i> Clear Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="map" class="animate__animated animate__fadeIn" style="width: 100%; height: 400px; margin-bottom: 30px;"></div>
+
+  <div *ngIf="filteredHotels.length > 0" class="animate__animated animate__fadeInUp">
+    <h4 class="mb-3 fw-bold">Nearby Hotels <span class="text-muted fs-6">({{ filteredHotels.length }} found)</span></h4>
+    
+    <div class="hotels-list">
+      <div *ngFor="let hotel of filteredHotels; let i = index" class="hotel-item">
+        <div class="hotel-info">
+          <h5>{{ hotel.name }}</h5>
+          <p><i class="bi bi-geo-alt-fill text-danger"></i> {{ hotel.vicinity }}</p>
+          
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <span *ngIf="hotel.rating" class="rating">
+              <i class="bi bi-star-fill"></i> {{ hotel.rating }} <span class="text-muted fw-normal small">/ 5</span>
+            </span>
+            <span *ngIf="hotel.price_level" class="price-level">
+              {{ '💰'.repeat(hotel.price_level) }}
+            </span>
+          </div>
+        </div>
+        
+        <button class="directions-btn" (click)="getDirections(hotel)">
+          <i class="bi bi-map"></i> Get Directions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Scanning for best stays...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger text-center mt-4 shadow-sm">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+  </div>
+</div>

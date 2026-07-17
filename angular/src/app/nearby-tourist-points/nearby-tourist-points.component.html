@@ -1,0 +1,62 @@
+<div class="container">
+
+  <div class="page-header animate__animated animate__fadeInDown">
+    <h2>Explore Local Gems</h2>
+    <p class="subtitle">Discover top-rated attractions around your current location</p>
+  </div>
+
+  <div class="map-wrapper animate__animated animate__fadeInUp">
+    <div id="map"></div>
+  </div>
+
+  <div *ngIf="places.length > 0" class="animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+    <h3><i class="bi bi-compass text-danger me-2"></i> Nearby Attractions ({{ places.length }})</h3>
+
+    <div class="places-list">
+      <div *ngFor="let place of places; let i = index" class="place-item">
+
+        <!-- Place Photo -->
+        <div class="place-photo-wrapper">
+          <ng-container *ngIf="getPhotoUrl(place) as photoUrl; else photoPlaceholder">
+            <img [src]="photoUrl" [alt]="place.name" class="place-photo" loading="lazy"
+              (error)="onImageError($event, place)" />
+          </ng-container>
+          <ng-template #photoPlaceholder>
+            <div class="place-photo-placeholder">
+              <i class="bi bi-image"></i>
+              <span>No photo available</span>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="place-info">
+          <h4>{{ place.name }}</h4>
+
+          <div class="place-address">
+            <i class="bi bi-geo-alt-fill text-muted mt-1"></i>
+            <span>{{ place.vicinity }}</span>
+          </div>
+
+          <div *ngIf="place.rating" class="rating-badge">
+            <i class="bi bi-star-fill"></i>
+            <span>{{ place.rating }} / 5</span>
+          </div>
+        </div>
+
+        <button class="directions-btn" (click)="getDirections(place)">
+          <i class="bi bi-signpost-2"></i> Get Directions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Scanning for attractions...</p>
+  </div>
+
+  <div *ngIf="error" class="error-alert animate__animated animate__shakeX">
+    <i class="bi bi-exclamation-circle-fill me-2"></i> {{ error }}
+  </div>
+
+</div>

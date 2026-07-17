@@ -1,0 +1,620 @@
+/* Backdrop */
+.register-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  z-index: 2000;
+}
+
+/* Container */
+.register-modal-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2100;
+  pointer-events: auto;
+}
+
+/* Dialog grid: split left/right */
+.register-dialog-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 90%;
+  max-width: 1200px;
+  min-width: 560px;
+  height: auto;
+  max-height: 85vh;
+  border-radius: 18px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  position: relative;
+}
+
+/* left panel */
+.left-panel {
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.25));
+  color: #fff;
+}
+
+/* image should cover */
+.left-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55);
+}
+
+/* controls overlay */
+.left-controls {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dot.active {
+  background: #fff;
+  width: 12px;
+  height: 12px;
+}
+
+/* right panel - white form */
+.right-panel {
+  background: #fff;
+  padding: 30px 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: 450px;
+}
+
+/* Remove scrollbar styling if not needed */
+.right-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.right-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.right-panel::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.right-panel::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* top close circle */
+.top-close-btn {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 10;
+}
+.close-circle {
+  background: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.close-circle:hover {
+  background: #f0f0f0;
+}
+
+/* titles */
+h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.6rem;
+  color: #111;
+  font-weight: 600;
+}
+.subtle {
+  color: #666;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+/* Form layout */
+.w-100 {
+  width: 100%;
+  display: block;
+}
+
+/* Make form fields more compact */
+.mat-form-field {
+  font-size: 14px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin-bottom: 0.5em;
+}
+
+/* Password fields */
+.password-field {
+  margin-bottom: 0;
+}
+
+/* Admin checkbox */
+.admin-checkbox {
+  margin: 8px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.admin-checkbox .mat-checkbox {
+  margin: 0;
+}
+
+.admin-checkbox .mat-checkbox-label {
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.checkbox-hint {
+  display: none;
+}
+
+/* Error messages */
+.register-error {
+  color: #b00020;
+  background-color: #fdeaea;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin: 8px 0;
+  font-size: 0.85rem;
+}
+
+/* Actions */
+.actions {
+  margin-top: 12px;
+}
+
+/* Button */
+.mat-raised-button {
+  padding: 8px 16px !important;
+  font-size: 0.9rem !important;
+}
+
+/* Grey color for CREATE ACCOUNT button */
+.grey-button {
+  background-color: #9e9e9e !important;
+  color: white !important;
+}
+
+.grey-button:hover:not(:disabled) {
+  background-color: #757575 !important;
+}
+
+.grey-button:disabled {
+  background-color: #bdbdbd !important;
+  color: #f5f5f5 !important;
+}
+
+/* Login link row */
+.login-row {
+  text-align: center;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.login-row a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.login-row a:hover {
+  text-decoration: underline;
+}
+
+/* OTP Sent Message */
+.otp-sent-message {
+  background-color: #e8f5e8;
+  border: 1px solid #4caf50;
+  color: #2e7d32;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin: 12px 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* OTP Verification Styles */
+.otp-verification {
+  width: 100%;
+}
+
+.otp-instructions {
+  background-color: #f5f9ff;
+  border-left: 4px solid #1976d2;
+  padding: 10px 14px;
+  margin: 12px 0;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.otp-instructions p {
+  margin: 0;
+  color: #555;
+}
+
+.otp-instructions strong {
+  color: #1976d2;
+}
+
+/* OTP Input Container */
+.otp-input-container {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.otp-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.otp-input {
+  width: 45px;
+  height: 50px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.otp-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.otp-input.filled {
+  border-color: #4caf50;
+  background-color: #f8fff8;
+}
+
+.otp-error {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* Resend OTP Section */
+.resend-otp-section {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.resend-text {
+  color: #666;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: #1976d2;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  font-size: 0.85rem;
+}
+
+.resend-btn:hover:not(:disabled) {
+  background-color: #f0f7ff;
+  text-decoration: underline;
+}
+
+.resend-btn:disabled {
+  color: #999;
+  cursor: not-allowed;
+}
+
+.cooldown-text {
+  color: #666;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+/* OTP Error Message */
+.otp-error-message {
+  color: #d32f2f;
+  background-color: #fdeaea;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin: 12px 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+/* OTP Actions */
+.otp-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.back-btn .material-symbols-outlined {
+  font-size: 16px;
+}
+
+/* bottom close icon */
+.dialog-actions {
+  margin-top: 8px;
+  display: none;
+  justify-content: flex-end;
+}
+
+.close-btn-bottom {
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+/* Material Icons in form fields */
+.mat-form-field .mat-icon {
+  color: #666;
+  margin-right: 8px;
+}
+
+/* Phone number field specific */
+.mat-form-field.phone-field .mat-form-field-prefix {
+  padding-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .register-dialog-grid {
+    width: 92%;
+    min-width: auto;
+  }
+  .left-panel { 
+    min-height: 400px;
+  }
+  .right-panel {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 720px) {
+  .register-dialog-grid {
+    grid-template-columns: 1fr;
+    width: 95%;
+    max-width: 600px;
+    max-height: 90vh;
+  }
+
+  .left-panel {
+    min-height: 220px;
+  }
+
+  /* Show bottom close only on mobile */
+  .dialog-actions {
+    display: flex;
+  }
+
+  .top-close-btn {
+    top: 12px;
+    right: 12px;
+  }
+
+  .right-panel {
+    padding: 20px 24px;
+    max-height: 50vh;
+  }
+  
+  /* OTP responsive adjustments */
+  .otp-inputs {
+    gap: 6px;
+  }
+
+  .otp-input {
+    width: 38px;
+    height: 45px;
+    font-size: 18px;
+  }
+  
+  /* Phone number field on mobile */
+  .phone-input {
+    font-size: 16px;
+  }
+}
+
+/* Success state for OTP digits */
+.otp-input.valid {
+  border-color: #4caf50;
+  background-color: #f8fff8;
+}
+
+/* Warning state for OTP digits */
+.otp-input.invalid {
+  border-color: #f44336;
+  background-color: #ffebee;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Loading state for OTP verification */
+.loading-otp {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Custom Form Input Styles */
+.form-input-container {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.input-error-text {
+  display: block;
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Password Input Container */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container .form-input {
+  padding-right: 50px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  color: #333;
+}
+
+.password-toggle-btn .material-symbols-outlined {
+  font-size: 20px;
+}

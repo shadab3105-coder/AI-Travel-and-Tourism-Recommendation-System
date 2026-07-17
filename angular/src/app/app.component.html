@@ -1,0 +1,436 @@
+<nav class="navbar navbar-expand-lg fixed-top" [class.scrolled]="isScrolled">
+  <div class="container">
+
+    <!-- Brand Logo with Gradient SVG -->
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/" (click)="closeMenu()"
+      aria-label="Vista Home">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+          stroke="url(#gradient)" stroke-width="2" />
+        <path d="M19.0711 19.0711L16 13L13 16L19.0711 19.0711Z" fill="url(#gradient)" />
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2193b0" />
+            <stop offset="100%" stop-color="#6dd5ed" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-text">Vista</span>
+    </a>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="!isMenuCollapsed"
+      aria-label="Toggle navigation" aria-controls="navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Menu -->
+    <div class="collapse navbar-collapse" [class.show]="!isMenuCollapsed" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center gap-3">
+
+        <!-- Navigation Links -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/flights" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
+            (click)="closeMenu()" aria-label="Flights">
+            <i class="bi bi-airplane d-lg-none me-2"></i>Flights
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/hotels" routerLinkActive="active" (click)="closeMenu()" aria-label="Hotels">
+            <i class="bi bi-building d-lg-none me-2"></i>Hotels
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/plan-trip" routerLinkActive="active" (click)="closeMenu()"
+            aria-label="plan trip">
+            <i class="bi bi-car-front d-lg-none me-2"></i>Plan Trip
+          </a>
+        </li>
+
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/cars" routerLinkActive="active" (click)="closeMenu()" aria-label="Cars">
+            <i class="bi bi-car-front d-lg-none me-2"></i>Cars
+          </a>
+        </li>
+         -->
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/packages" routerLinkActive="active" (click)="closeMenu()"
+            aria-label="Packages">
+            <i class="bi bi-suitcase-lg d-lg-none me-2"></i>Packages
+          </a>
+        </li> -->
+
+        <!-- Saved Trips (Logged In Only) -->
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/saved-trips" routerLinkActive="active" (click)="closeMenu()"
+            aria-label="My Saved Trips">
+            <i class="bi bi-heart-fill me-1 text-danger"></i>
+            <!-- <span class="d-none d-lg-inline">My Saves</span> -->
+            <!-- <span class="d-lg-none">Saved Trips</span> -->
+          </a>
+        </li>
+
+        <!-- Search Bar (Desktop Only) -->
+        <!-- <li class="nav-item ms-lg-3 d-none d-lg-block">
+          <div class="search-container position-relative">
+            <input type="search" class="form-control form-control-sm search-input" placeholder="Search destinations..."
+              [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" [attr.aria-label]="'Search destinations'" />
+            <button class="btn btn-sm search-btn" (click)="onSearch()" [attr.aria-label]="'Search'">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </li> -->
+
+        <!-- Auth Section -->
+        <li class="nav-item ms-lg-3">
+
+          <!-- Not Logged In -->
+          <div *ngIf="!isLoggedIn" class="d-flex gap-2 align-items-center">
+            <a (click)="openLoginModal()" class="btn btn-link nav-link text-white text-decoration-none cursor-pointer"
+              role="button" aria-label="Login">
+              Login
+            </a>
+            <a (click)="openRegisterModal()" class="btn btn-primary btn-pill cursor-pointer" role="button"
+              aria-label="Sign Up">
+              Sign Up
+            </a>
+          </div>
+
+          <!-- Logged In - User Dropdown -->
+          <div *ngIf="isLoggedIn" class="dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle user-profile d-flex align-items-center gap-2 cursor-pointer"
+              role="button" data-bs-toggle="dropdown" ngbDropdownToggle [attr.aria-expanded]="false"
+              aria-label="User menu">
+              <div class="avatar-circle pulse-animation" [class.online]="userIsOnline"
+                [title]="user?.firstName + ' ' + user?.lastName">
+                {{ userInitials }}
+              </div>
+              <span class="d-none d-lg-block user-name">
+                {{ user?.firstName }}
+                <i class="bi bi-chevron-down small ms-1"></i>
+              </span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" ngbDropdownMenu>
+              <!-- <li>
+                <a class="dropdown-item" routerLink="/profile" (click)="closeMenu()">
+                  <i class="bi bi-person me-2"></i>Profile
+                </a>
+              </li> -->
+              <li>
+                <a class="dropdown-item" routerLink="/bookings" (click)="closeMenu()">
+                  <i class="bi bi-calendar-check me-2"></i>My Bookings
+                </a>
+              </li>
+              <!-- <li>
+                <a class="dropdown-item" routerLink="/saved-trips" (click)="closeMenu()">
+                  <i class="bi bi-heart me-2"></i>Saved Trips
+                </a>
+              </li> -->
+              <li *ngIf="user?.role === 'admin'">
+                <a class="dropdown-item" routerLink="/admin" (click)="closeMenu()">
+                  <i class="bi bi-shield-check me-2"></i>Admin Panel
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="logout(); closeMenu()">
+                  <i class="bi bi-box-arrow-right me-2"></i>Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Search (Hidden on Desktop) -->
+<div class="mobile-search-container d-lg-none" *ngIf="showMobileSearch">
+  <div class="container py-2">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search flights, hotels, destinations..."
+        [(ngModel)]="searchQuery" (keyup.enter)="onSearch()">
+      <button class="btn btn-outline-light" (click)="onSearch()">
+        <i class="bi bi-search"></i>
+      </button>
+      <button class="btn btn-outline-light" (click)="toggleMobileSearch()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Search Toggle -->
+<div class="d-lg-none fixed-bottom bg-dark py-2 text-center" *ngIf="!showMobileSearch">
+  <button class="btn btn-sm btn-outline-light" (click)="toggleMobileSearch()">
+    <i class="bi bi-search me-1"></i>Search
+  </button>
+</div>
+
+<!-- Main Content -->
+<main class="main-content" role="main">
+  <div class="page-transition">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<!-- Footer -->
+
+<!-- ************************************************************** -->
+
+<!-- <footer class="custom-footer" role="contentinfo">
+  <div class="container">
+    <div class="row">
+
+
+      <div class="col-lg-4 mb-4">
+        <h3 class="footer-title">Vista Travel</h3>
+        <p class="text-muted mb-3">
+          Your premium gateway to unforgettable experiences around the world.
+          We make travel planning seamless and memorable.
+        </p>
+        <div class="footer-social">
+          <a href="https://twitter.com" class="social-icon hover-lift" target="_blank" rel="noopener noreferrer"
+            aria-label="Twitter">
+            <i class="bi bi-twitter"></i>
+          </a>
+          <a href="https://facebook.com" class="social-icon hover-lift" target="_blank" rel="noopener noreferrer"
+            aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a href="https://instagram.com" class="social-icon hover-lift" target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a href="https://linkedin.com" class="social-icon hover-lift" target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn">
+            <i class="bi bi-linkedin"></i>
+          </a>
+        </div>
+      </div>
+
+
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="text-white mb-3">Explore</h5>
+        <a href="#" class="footer-link">Destinations</a>
+        <a href="#" class="footer-link">Flights</a>
+        <a href="#" class="footer-link">Hotels</a>
+        <a href="#" class="footer-link">Packages</a>
+        <a href="#" class="footer-link">Activities</a>
+      </div>
+
+
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="text-white mb-3">Company</h5>
+        <a href="#" class="footer-link">About Us</a>
+        <a href="#" class="footer-link">Blog</a>
+        <a href="#" class="footer-link">Careers</a>
+        <a href="#" class="footer-link">Press</a>
+        <a href="#" class="footer-link">Partners</a>
+      </div>
+
+
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="text-white mb-3">Support</h5>
+        <a href="#" class="footer-link">Help Center</a>
+        <a href="#" class="footer-link">FAQs</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Contact Us</a>
+      </div>
+
+
+      <div class="col-lg-2 mb-4">
+        <h5 class="text-white mb-3">Newsletter</h5>
+        <p class="text-muted small mb-3">Get exclusive deals and travel tips</p>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Your email" aria-label="Email for newsletter"
+            [(ngModel)]="newsletterEmail">
+          <button class="btn btn-danger" type="button" (click)="subscribeNewsletter()" [disabled]="!newsletterEmail">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+        <small class="text-muted">We respect your privacy. Unsubscribe at any time.</small>
+      </div>
+    </div>
+
+
+    <div class="border-top border-secondary pt-4 mt-4 text-center">
+      <small class="text-muted">
+        &copy; {{ currentYearValue }} Vista Travel Inc. All rights reserved. |
+        Made with <i class="bi bi-heart-fill text-danger"></i> for travelers
+      </small>
+      <div class="mt-2">
+        <small class="text-muted">
+          <a href="#" class="text-muted text-decoration-none me-3">Cookie Policy</a>
+          <a href="#" class="text-muted text-decoration-none me-3">Sitemap</a>
+          <a href="#" class="text-muted text-decoration-none">Accessibility</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+
+
+<footer class="custom-footer">
+
+  <div class="container">
+
+    <div class="row align-items-center gy-4">
+
+      <!-- Brand -->
+      <div class="col-lg-5">
+
+        <h3 class="footer-title">
+          <i class="bi bi-airplane-engines-fill me-2"></i>
+          Vista Travel
+        </h3>
+
+        <p class="footer-text">
+          AI-powered travel planning platform that helps you discover destinations,
+          compare flights, book hotels, and create personalized itineraries in seconds.
+        </p>
+
+        <div class="footer-social">
+
+          <a href="#"><i class="bi bi-facebook"></i></a>
+
+          <a href="#"><i class="bi bi-instagram"></i></a>
+
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+
+        </div>
+
+      </div>
+
+      <!-- Quick Links -->
+
+      <div class="col-lg-3">
+
+        <h5>Quick Links</h5>
+
+        <a routerLink="/flights">Flights</a>
+
+        <a routerLink="/hotels">Hotels</a>
+
+        <a routerLink="/plan-trip">AI Planner</a>
+
+        <a routerLink="/bookings">My Bookings</a>
+
+      </div>
+
+      <!-- Contact -->
+
+      <div class="col-lg-4">
+
+        <h5>Contact</h5>
+
+        <p>
+          <i class="bi bi-envelope-fill me-2"></i>
+          support&#64;vistatravel.com
+        </p>
+
+        <p>
+          <i class="bi bi-telephone-fill me-2"></i>
+          +91 98765 43210
+        </p>
+
+        <p>
+          <i class="bi bi-geo-alt-fill me-2"></i>
+          Kolkata, India
+        </p>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="footer-bottom">
+
+      <span>
+        © {{ currentYearValue }} Vista Travel
+      </span>
+
+      <span>
+        Made with
+        <i class="bi bi-heart-fill text-danger"></i>
+        using Angular • Node.js • AI
+      </span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ********************************************************** -->
+
+
+
+
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" [class.show]="showScrollToTop" (click)="scrollToTop()" aria-label="Scroll to top"
+  [attr.aria-hidden]="!showScrollToTop">
+  <i class="bi bi-chevron-up"></i>
+</button>
+
+<!-- Mobile Navigation Helper (Bottom Nav on Mobile) -->
+<nav class="d-lg-none mobile-bottom-nav fixed-bottom bg-dark py-2" role="navigation">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-3">
+        <a class="text-white d-flex flex-column align-items-center" routerLink="/" (click)="closeMenu()">
+          <i class="bi bi-house-door"></i>
+          <small>Home</small>
+        </a>
+      </div>
+      <div class="col-3">
+        <a class="text-white d-flex flex-column align-items-center" routerLink="/flights" (click)="closeMenu()">
+          <i class="bi bi-airplane"></i>
+          <small>Flights</small>
+        </a>
+      </div>
+      <div class="col-3">
+        <a class="text-white d-flex flex-column align-items-center" (click)="toggleMobileSearch()">
+          <i class="bi bi-search"></i>
+          <small>Search</small>
+        </a>
+      </div>
+      <div class="col-3">
+        <a class="text-white d-flex flex-column align-items-center" *ngIf="!isLoggedIn" (click)="openLoginModal()">
+          <i class="bi bi-person"></i>
+          <small>Login</small>
+        </a>
+        <a class="text-white d-flex flex-column align-items-center" *ngIf="isLoggedIn" routerLink="/profile"
+          (click)="closeMenu()">
+          <i class="bi bi-person-circle"></i>
+          <small>Profile</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

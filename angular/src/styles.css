@@ -1,0 +1,407 @@
+/* src/styles.css - FIXED VERSION */
+
+/* ===================================================================
+   CRITICAL FIX: Remove white background from all modals
+   =================================================================== */
+
+/* Make ALL Material Dialog layers transparent */
+.cdk-overlay-pane,
+.mat-dialog-container,
+.mat-mdc-dialog-container,
+.mdc-dialog__container,
+.mdc-dialog__surface,
+.mat-mdc-dialog-surface,
+.mat-dialog-surface,
+.mat-mdc-dialog-content,
+.mat-dialog-content,
+.mat-mdc-dialog-actions,
+.mat-dialog-actions {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* Remove padding and box shadows */
+.mat-dialog-container,
+.mat-mdc-dialog-container {
+  padding: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  border-radius: 16px !important;
+}
+
+/* 🛠️ FIX: Transparent backdrop WITHOUT blur effect on navbar */
+.cdk-overlay-dark-backdrop,
+.cdk-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.7) !important;
+  /* Remove backdrop-filter to prevent navbar shifting */
+  /* backdrop-filter: blur(5px) !important; */
+  /* -webkit-backdrop-filter: blur(5px) !important; */
+}
+
+/* 🛠️ FIX: Ensure navbar stays fixed and doesn't get affected by modal */
+.navbar {
+  position: fixed !important;
+  top: 0 !important;
+  width: 100% !important;
+  z-index: 1030 !important; /* Higher than backdrop but lower than modal */
+  transform: translateZ(0) !important; /* Creates new stacking context */
+  will-change: transform; /* Optimize for fixed positioning */
+}
+
+/* Ensure overlay container sits above everything */
+.cdk-overlay-container {
+  z-index: 999999 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none;
+}
+
+.cdk-overlay-pane {
+  pointer-events: auto;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000000 !important; /* Higher than navbar */
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* 🛠️ FIX: Prevent body scroll when modal is open */
+body.cdk-overlay-backdrop-showing {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
+/* ===================================================================
+   Custom styles for TravelBooking site
+   =================================================================== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  padding-top: 70px; /* Add padding for fixed navbar */
+}
+
+/* Card tweaks */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-1px);
+}
+.btn-outline-primary {
+  border-color: #667eea;
+  color: #667eea;
+  border-radius: 8px;
+}
+.btn-outline-primary:hover {
+  background: #667eea;
+  border-color: #667eea;
+}
+
+/* Forms */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+}
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Footer */
+footer { 
+  margin-top: auto; 
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card { 
+  animation: fadeIn 0.6s ease-out; 
+}
+
+/* Responsive small adjustments */
+@media (max-width: 768px) {
+  .hero-section { padding: 2rem 0; }
+  .display-4 { font-size: 2rem; }
+  .btn { padding: 0.5rem 1rem; }
+  body {
+    padding-top: 60px; /* Less padding on mobile */
+  }
+}
+
+/* Custom color helpers */
+.text-primary-custom { color: #667eea !important; }
+.bg-primary-custom { background-color: #667eea !important; }
+
+/* Loading spinner */
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin { 
+  0% { transform: rotate(0deg); } 
+  100% { transform: rotate(360deg); } 
+}
+
+/* ===================================================================
+   Dialog panel classes
+   =================================================================== */
+
+/* Full auth modal - large modal */
+.full-auth-modal {
+  width: 70vw !important;
+  max-width: 1100px !important;
+  height: 90vh !important;
+  max-height: 90vh !important;
+}
+
+/* Small register modal */
+.small-register-modal {
+  width: 520px !important;
+  max-width: 90vw !important;
+  height: auto !important;
+}
+
+/* Ensure dialog containers respect panel dimensions */
+.full-auth-modal .mat-mdc-dialog-container,
+.small-register-modal .mat-mdc-dialog-container {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+/* Make sure inner surfaces don't add extra backgrounds */
+.full-auth-modal .mat-mdc-dialog-surface,
+.small-register-modal .mat-mdc-dialog-surface {
+  background: transparent !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+/* 🛠️ FIX: Login modal specific - Ensure it appears above navbar */
+.login-modal .mat-mdc-dialog-container {
+  z-index: 1000001 !important;
+  position: relative;
+}
+
+.login-modal .mdc-dialog__surface {
+  z-index: 1000002 !important;
+}
+
+/* ===================================================================
+   Custom backdrop variations (WITHOUT BLUR FOR NAVBAR STABILITY)
+   =================================================================== */
+
+/* Blurred backdrop - REMOVED blur for navbar stability */
+.blur-backdrop .cdk-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.6) !important;
+  /* backdrop-filter: blur(10px) !important; */
+  /* -webkit-backdrop-filter: blur(10px) !important; */
+}
+
+/* Dark backdrop */
+.dark-backdrop .cdk-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Light backdrop */
+.light-backdrop .cdk-overlay-backdrop {
+  background: rgba(255, 255, 255, 0.4) !important;
+  /* backdrop-filter: blur(8px) !important; */
+  /* -webkit-backdrop-filter: blur(8px) !important; */
+}
+
+/* ===================================================================
+   Scrollbar styling
+   =================================================================== */
+
+/* Custom scrollbar */
+::-webkit-scrollbar { 
+  background: transparent; 
+  height: 8px; 
+  width: 8px; 
+}
+::-webkit-scrollbar-thumb { 
+  background: rgba(0,0,0,0.08); 
+  border-radius: 6px; 
+}
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===================================================================
+   Auth modal specific styles
+   =================================================================== */
+
+.auth-wide-modal {
+  width: 70vw !important;
+  max-width: 1200px !important;
+  height: 85vh !important;
+}
+
+.auth-wide-modal .mat-mdc-dialog-container {
+  border-radius: 20px !important;
+}
+
+/* ===================================================================
+   Accessibility focus outlines
+   =================================================================== */
+a:focus, button:focus, input:focus {
+  outline: 3px solid rgba(100,100,250,0.12);
+  outline-offset: 2px;
+}
+
+/* ===================================================================
+   Utility classes
+   =================================================================== */
+
+/* Glass effect - Modified for navbar stability */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===================================================================
+   Mobile optimizations
+   =================================================================== */
+@media (max-width: 768px) {
+  /* Better modal handling on mobile */
+  .full-auth-modal,
+  .auth-wide-modal {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    height: 95vh !important;
+    border-radius: 12px !important;
+  }
+  
+  .small-register-modal {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+  
+  /* Adjust dialog containers on mobile */
+  .full-auth-modal .mat-mdc-dialog-container,
+  .auth-wide-modal .mat-mdc-dialog-container,
+  .small-register-modal .mat-mdc-dialog-container {
+    border-radius: 12px !important;
+  }
+  
+  /* 🛠️ FIX: Ensure navbar stays fixed on mobile */
+  .navbar {
+    position: fixed !important;
+    top: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ===================================================================
+   Print styles
+   =================================================================== */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .cdk-overlay-container {
+    display: none !important;
+  }
+  
+  .navbar {
+    position: static !important;
+  }
+}
+
+/* ===================================================================
+   Fix for Bootstrap form-floating label issue
+   =================================================================== */
+.form-floating > label.form-label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control-plaintext ~ label,
+.form-floating > .form-select ~ label {
+  opacity: 0.65;
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* 🛠️ FIX: Additional CSS to prevent navbar shifting */
+/* Create a fixed container for the modal that doesn't affect navbar */
+.cdk-overlay-pane {
+  isolation: isolate; /* Creates new stacking context */
+}
+
+/* Ensure modal content doesn't affect layout */
+.mat-dialog-content {
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+}
+
+/* 🛠️ FIX: Temporary blur solution (optional - use if you really want blur) */
+/* If you MUST have blur, use this alternative approach */
+.cdk-overlay-backdrop.showing-blur {
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+/* When backdrop has blur, isolate the navbar */
+.cdk-overlay-backdrop.showing-blur ~ .navbar {
+  position: fixed;
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  backface-visibility: hidden; /* Prevent flickering */
+  -webkit-backface-visibility: hidden;
+}

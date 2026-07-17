@@ -1,0 +1,849 @@
+<!-- ================= HERO SECTION ================= -->
+<!-- *******************fresh**************** -->
+
+<!-- <div class="hero-section">
+  <div class="container hero-content text-center">
+    <h1 class="display-3 fw-bold text-white mb-4 animate__animated animate__fadeInDown">
+      Let's Explore The World
+    </h1>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="search-widget animate__animated animate__fadeInUp">
+
+
+          <div class="flex-grow-1 d-flex gap-2 flex-wrap flex-md-nowrap">
+            <div class="input-group">
+              <span class="input-group-text bg-white border-0">
+                <i class="bi bi-geo-alt text-primary"></i>
+              </span>
+              <input type="text" class="form-control border-0 shadow-none" placeholder="Where to?" />
+            </div>
+
+            <div class="vr d-none d-md-block"></div>
+
+            <div class="input-group">
+              <span class="input-group-text bg-white border-0">
+                <i class="bi bi-calendar-event text-primary"></i>
+              </span>
+              <input type="date" class="form-control border-0 shadow-none" />
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 mt-3 mt-md-0">
+            <button class="btn btn-search-main px-4 rounded-pill fw-bold" routerLink="/flights">
+              SEARCH
+            </button>
+
+            <button class="btn btn-near-me px-3 rounded-pill btn-outline-dark border-0" (click)="toggleNearby()">
+              <i class="bi bi-compass-fill me-1"></i> Near Me
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- *************************************** -->
+
+<div class="hero-section">
+  <div class="container hero-content text-center">
+    <h1 class="display-3 fw-bold text-white mb-4 animate__animated animate__fadeInDown">
+      Let's Explore The World
+    </h1>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="search-widget animate__animated animate__fadeInUp">
+
+          <div class="hero-nearby-wrapper">
+
+            <!-- Center Text -->
+            <div class="hero-nearby-content">
+
+              <h3>Discover Amazing Places Around You</h3>
+
+              <p>
+                Explore nearby tourist attractions, temples, museums,
+                and hidden gems with one click.....
+              </p>
+
+            </div>
+
+            <!-- Divider -->
+            <div class="hero-divider d-none d-lg-block"></div>
+
+            <!-- Button -->
+            <button class="btn btn-nearby-main" (click)="toggleNearby()">
+
+              <i class="bi bi-crosshair2 me-2"></i>
+
+              Explore Nearby
+
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- ================= NEARBY ATTRACTIONS PANEL ================= -->
+<div *ngIf="showNearbyPanel" class="nearby-panel py-5 animate__animated animate__fadeInDown bg-light border-bottom">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold text-primary mb-0">Attractions Near You</h3>
+      <button class="btn btn-sm btn-outline-secondary rounded-pill" (click)="toggleNearby()">Close</button>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loadingNearby" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+      <p class="mt-2 text-muted">Finding attractions near you...</p>
+    </div>
+
+    <!-- Nearby Attractions Carousel -->
+    <div *ngIf="!loadingNearby && nearbyAttractions.length > 0" class="carousel-wrapper position-relative">
+      <button class="scroll-btn left" (click)="scrollCarousel('nearby', -1)">
+        <span>&laquo;</span><i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="carousel-container" id="nearby-carousel">
+        <div *ngFor="let attraction of nearbyAttractions" class="card border-0 shadow-sm" style="min-width: 280px;">
+          <img [src]="attraction.photoUrl" class="card-img-top attraction-image" alt="{{ attraction.name }}">
+          <div class="mb-2">
+
+            <span class="badge bg-warning text-dark">
+
+              <i class="bi bi-star-fill"></i>
+
+              {{ attraction.rating }}
+
+            </span>
+
+            <small class="text-muted ms-2">
+
+              ({{ attraction.totalRatings }} Reviews)
+
+            </small>
+
+          </div>
+          <div class="mb-3">
+
+            <span class="badge rounded-pill" [ngClass]="{
+
+            'bg-success': attraction.openNow === true,
+
+            'bg-danger': attraction.openNow === false,
+
+            'bg-secondary': attraction.openNow === null
+
+        }">
+
+              <i class="bi bi-circle-fill me-1"></i>
+
+              {{ attraction.openNow === true ? 'Open Now' :
+              attraction.openNow === false ? 'Closed' :
+              'Status Unknown' }}
+
+            </span>
+
+          </div>
+          <div class="card-body">
+            <h6 class="fw-bold text-truncate mb-1">{{ attraction.name }}</h6>
+            <p class="text-muted small text-truncate mb-3">{{ attraction.vicinity }}</p>
+
+            <!-- Travel Info Badges -->
+            <div class="d-flex justify-content-between mb-3">
+              <span class="badge bg-light text-dark border">
+                <i class="bi bi-clock me-1"></i>{{ getTravelTime(attraction) }}
+              </span>
+              <span class="badge bg-light text-dark border">
+                <i class="bi bi-geo-alt me-1"></i>{{ getDistance(attraction) }}
+              </span>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex gap-2">
+              <a href="https://www.google.com/maps/search/?api=1&query={{attraction.name}}" target="_blank"
+                class="btn btn-sm btn-outline-primary w-100 rounded-pill">
+                <i class="bi bi-map me-1"></i>Map
+              </a>
+              <!-- <button class="btn btn-sm btn-outline-primary rounded-pill" (click)="saveAttraction(attraction)">
+                <i class="bi bi-bookmark"></i>
+              </button> -->
+              <button class="btn btn-sm btn-outline-primary rounded-pill" (click)="openAttractionModal(attraction)">
+
+                <i class="bi bi-map me-1"></i>Info
+
+              </button>
+
+              <!-- <button class="btn attraction-info-btn" (click)="openAttractionModal(attraction)"
+                title="AI Travel Overview">
+
+                <i class="bi bi-geo-alt-fill"></i>
+
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="scroll-btn right" (click)="scrollCarousel('nearby', 1)">
+        <i class="bi bi-chevron-right"></i><span>></span>
+      </button>
+    </div>
+
+    <!-- No Attractions Found -->
+    <div *ngIf="!loadingNearby && nearbyAttractions.length === 0" class="text-center py-5">
+      <i class="bi bi-emoji-frown display-4 text-muted"></i>
+      <p class="mt-3 text-muted">No attractions found near your location.</p>
+      <button class="btn btn-outline-danger rounded-pill" (click)="refreshLocation()">
+        <i class="bi bi-arrow-clockwise me-1"></i>Try Again
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= EXCLUSIVE DEALS ================= -->
+<div class="container py-5 mt-4">
+  <div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+      <h2 class="section-title fw-bold">Exclusive Deals</h2>
+      <p class="text-muted mb-0">Limited time offers</p>
+    </div>
+    <button class="btn btn-link text-decoration-none small fw-bold text-primary p-0" (click)="toggleViewAll()">
+      {{ showAllDeals ? 'Show Less' : 'View All' }} <i class="bi bi-arrow-{{ showAllDeals ? 'up' : 'right' }}"></i>
+    </button>
+  </div>
+
+  <!-- Exclusive Deals Carousel -->
+  <div class="carousel-wrapper position-relative">
+    <button class="scroll-btn left" (click)="scrollCarousel('deals', -1)">
+      <span>&laquo;</span><i class="bi bi-chevron-left"></i>
+    </button>
+
+    <div class="carousel-container d-flex gap-4" id="deals-carousel">
+      <!-- Static Deals Data (Fallback) -->
+      <div *ngFor="let deal of (showAllDeals ? travelDeals : travelDeals.slice(0, 4))"
+        class="card border-0 shadow-sm flex-shrink-0 overflow-hidden" style="width: 300px;">
+        <div class="position-relative">
+          <img [src]="deal.image" class="w-100 object-fit-cover" style="height: 200px;" [alt]="deal.title">
+          <span
+            class="position-absolute top-0 start-0 bg-danger text-white px-3 py-1 small fw-bold m-3 rounded-pill shadow-sm">
+            {{ deal.discount }}
+          </span>
+          <span class="position-absolute top-0 end-0 bg-dark text-white px-2 py-1 small m-3 rounded">
+            <i class="bi bi-lightning-charge-fill"></i> FLASH
+          </span>
+        </div>
+        <div class="card-body">
+          <h5 class="fw-bold mb-1">{{ deal.title }}</h5>
+          <p class="text-muted small mb-2">{{ deal.description || 'Special package deal' }}</p>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="h4 text-danger fw-bold">{{ deal.price | currency:'USD' }}</span>
+            <span class="text-muted text-decoration-line-through small">{{ deal.originalPrice | currency:'USD' }}</span>
+          </div>
+          <button class="btn btn-outline-primary w-100 rounded-pill" (click)="viewDeal(deal)">
+            View Deal <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button class="scroll-btn right" (click)="scrollCarousel('deals', 1)">
+      <i class="bi bi-chevron-right"></i><span>></span>
+    </button>
+  </div>
+</div>
+
+<!-- ================= TRENDING DESTINATIONS ================= -->
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title fw-bold">Trending Now</h2>
+      <p class="text-muted">Travelers' top choices this season</p>
+    </div>
+
+    <!-- Trending Carousel -->
+    <div class="carousel-wrapper position-relative">
+      <button class="scroll-btn left" (click)="scrollCarousel('trending', -1)">
+        <span>&laquo;</span><i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="carousel-container d-flex gap-4" id="trending-carousel">
+        <div *ngFor="let place of globalTrending" class="card border-0 shadow-sm flex-shrink-0 overflow-hidden"
+          style="width: 280px;">
+          <div class="position-relative">
+            <img [src]="place.image" class="w-100 object-fit-cover" style="height: 320px;" [alt]="place.city">
+            <div class="position-absolute bottom-0 start-0 w-100 p-3"
+              style="background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h5 class="text-white fw-bold mb-0" style="text-shadow: 0 0 5px rgba(0,0,0,0.7);">{{ place.city }}
+                  </h5>
+                  <small class="text-white-50" style="text-shadow: 0 0 5px rgba(0,0,0,0.7);">{{ place.country }}</small>
+                </div>
+                <span class="badge bg-white text-dark">
+                  <i class="bi bi-star-fill text-warning"></i> {{ place.rating }}
+                </span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <span class="text-white fw-bold" style="text-shadow: 0 0 5px rgba(0,0,0,0.7);">{{ place.price |
+                  currency:'USD' }}</span>
+                <span class="badge bg-info">{{ place.trendingScore }}% Trending</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-primary w-100 rounded-pill" (click)="exploreDestination(place)">
+              Explore <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button class="scroll-btn right" (click)="scrollCarousel('trending', 1)">
+        <i class="bi bi-chevron-right"></i><span>></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PERSONALIZED RECOMMENDATIONS ================= -->
+<!-- <div *ngIf="isLoggedIn && destinationRecommendations.length > 0" class="container py-5">
+  <div class="d-flex align-items-center mb-4">
+    <div
+      class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+      style="width: 50px; height: 50px;">
+      <i class="bi bi-magic fs-4"></i>
+    </div>
+    <div>
+      <h2 class="fw-bold mb-0 text-primary">Picked For You, {{ user?.firstName }}</h2>
+      <p class="text-muted small">Personalized based on your preferences</p>
+    </div>
+  </div>
+
+
+  <div *ngIf="!loadingDestinationRecommendations" class="carousel-wrapper position-relative">
+    <button class="scroll-btn left" (click)="scrollCarousel('rec', -1)">
+      <span>&laquo;</span><i class="bi bi-chevron-left"></i>
+    </button>
+
+    <div class="carousel-container d-flex gap-4" id="rec-carousel">
+      <div *ngFor="let rec of destinationRecommendations"
+        class="card border border-primary border-opacity-25 shadow-sm flex-shrink-0"
+        style="width: 320px; background: #f8fbff;">
+        <div class="card-body p-4 d-flex flex-column h-100">
+  
+          <div class="d-flex justify-content-between mb-2">
+            <div>
+              <h5 class="fw-bold mb-0">{{ rec.destination }}</h5>
+              <small class="text-muted">{{ rec.country }} • {{ rec.category }}</small>
+            </div>
+            <span class="badge bg-success bg-opacity-10 text-success">
+              {{ rec.score }}% Match
+            </span>
+          </div>
+
+          
+          <p class="small text-muted mb-3 flex-grow-1">{{ rec.description }}</p>
+
+      
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small mb-1">
+              <span class="text-muted">Popularity</span>
+              <span class="fw-bold">{{ rec.popularity }}%</span>
+            </div>
+            <div class="progress" style="height: 4px;">
+              <div class="progress-bar bg-primary" [style.width.%]="rec.popularity"></div>
+            </div>
+          </div>
+
+  
+          <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+            <div>
+              <span class="fw-bold text-primary">{{ rec.price_range }}</span>
+              <br>
+              <small class="text-muted">{{ rec.data_source || 'AI Generated' }}</small>
+            </div>
+            <a routerLink="/flights" [queryParams]="{ to: rec.destination }"
+              class="btn btn-sm btn-primary rounded-pill px-3">
+              Explore <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="scroll-btn right" (click)="scrollCarousel('rec', 1)">
+      <i class="bi bi-chevron-right"></i><span>></span>
+    </button>
+  </div>
+
+
+  <div *ngIf="loadingDestinationRecommendations" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Loading personalized recommendations...</p>
+  </div>
+</div> -->
+
+<!-- ================= CTA SECTION ================= -->
+<!-- <div class="bg-dark text-white py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Ready for Your Next Adventure?</h2>
+    <p class="mb-4 opacity-75">Join thousands of travelers who trust us for their journeys.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <button class="btn btn-light px-4 rounded-pill fw-bold" routerLink="/flights">
+        <i class="bi bi-airplane me-2"></i>Book a Flight
+      </button>
+      <button *ngIf="!isLoggedIn" class="btn btn-outline-light px-4 rounded-pill" (click)="openRegisterModal()">
+        <i class="bi bi-person-plus me-2"></i>Sign Up Free
+      </button>
+      <button *ngIf="isLoggedIn" class="btn btn-outline-light px-4 rounded-pill" routerLink="/profile">
+        <i class="bi bi-person-circle me-2"></i>My Profile
+      </button>
+    </div>
+  </div>
+</div> -->
+
+<!-- ================= REGISTER MODAL ================= -->
+<div class="auth-modal-backdrop" *ngIf="showRegisterModal">
+  <div class="auth-modal">
+    <!-- CLOSE BUTTON -->
+    <button class="close-btn" (click)="closeRegisterModal()">×</button>
+
+    <div class="auth-layout">
+      <!-- LEFT SIDE (Visual) -->
+      <div class="auth-left">
+        <img src="assets/images/login-bg.jpg" alt="Travel" class="auth-image" />
+        <div class="auth-left-content">
+          <h3 class="text-white fw-bold">Join Our Travel Community</h3>
+          <p class="text-white opacity-75">Get personalized recommendations, exclusive deals, and save your favorite
+            destinations.</p>
+          <div class="mt-4">
+            <div class="d-flex align-items-center text-white mb-2">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              <span>Personalized travel recommendations</span>
+            </div>
+            <div class="d-flex align-items-center text-white mb-2">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              <span>Exclusive member-only deals</span>
+            </div>
+            <div class="d-flex align-items-center text-white">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              <span>Save and organize your trips</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE (REGISTER FORM) -->
+      <div class="auth-right">
+        <app-register></app-register>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ****************************************** -->
+
+<!-- <div class="modal-overlay" *ngIf="showAttractionModal" (click)="closeAttractionModal()">
+
+  <div class="overview-modal" (click)="$event.stopPropagation()">
+
+ 
+
+    <button class="close-btn" (click)="closeAttractionModal()">
+
+      <i class="bi bi-x-lg"></i>
+
+    </button>
+
+   
+
+    <div class="section-title">
+
+      <i class="bi bi-robot"></i>
+
+      <h3>AI Travel Overview</h3>
+
+    </div>
+
+    <div class="overview-box">
+
+      <div *ngIf="loadingOverview" class="loading-box">
+
+        <div class="spinner-border text-primary"></div>
+
+        <p>Generating AI Overview...</p>
+
+      </div>
+
+      <div *ngIf="!loadingOverview">
+
+        {{ placeOverview }}
+
+      </div>
+
+    </div>
+
+  
+
+    <div class="section-title mt-5">
+
+      <i class="bi bi-lightbulb"></i>
+
+      <h3>Visitor Information</h3>
+
+    </div>
+
+    <div class="info-card">
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-clock-history"></i>
+
+          Best Time
+
+        </div>
+
+        <span>Morning / Evening</span>
+
+      </div>
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-ticket-perforated"></i>
+
+          Entry Fee
+
+        </div>
+
+        <span>₹30 (Approx.)</span>
+
+      </div>
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-hourglass-split"></i>
+
+          Visit Duration
+
+        </div>
+
+        <span>2–3 Hours</span>
+
+      </div>
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-taxi-front"></i>
+
+          Transport
+
+        </div>
+
+        <span>Cab / Metro</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div> -->
+
+<!-- Attraction Details Modal -->
+
+<div class="attraction-modal-overlay" *ngIf="showAttractionModal" (click)="closeAttractionModal()">
+
+  <div class="attraction-modal" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+
+    <div class="modal-header">
+
+      <div class="header-left">
+
+        <!-- <div class="place-icon">
+          <i class="bi bi-geo-alt-fill"></i>
+        </div>
+
+        <div>
+
+          <h2>{{selectedAttraction?.name}}</h2>
+
+          <p>
+            <i class="bi bi-geo"></i>
+            {{selectedAttraction?.vicinity}}
+          </p>
+
+        </div>
+
+      </div>
+
+      <button class="close-btn" (click)="closeAttractionModal()">
+
+        <i class="bi bi-x-lg"></i>
+
+      </button> -->
+
+        <div class="place-icon">
+
+          <img *ngIf="selectedAttraction?.photoUrl" [src]="selectedAttraction.photoUrl" alt="Place">
+
+          <i *ngIf="!selectedAttraction?.photoUrl" class="bi bi-geo-alt-fill">
+          </i>
+
+        </div>
+
+        <div class="place-info">
+
+          <h2>{{ selectedAttraction?.name }}</h2>
+
+          <p>
+            <i class="bi bi-geo-alt-fill me-1"></i>
+            {{ selectedAttraction?.vicinity }}
+          </p>
+
+        </div>
+
+      </div>
+
+      <button class="close-btn" (click)="closeAttractionModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+    </div>
+
+    <!-- Overview -->
+
+    <div class="overview-card">
+
+      <div class="section-title">
+
+        <i class="bi bi-stars"></i>
+
+        AI Travel Overview
+
+      </div>
+
+      <div *ngIf="loadingOverview" class="loading-box">
+
+        <div class="spinner-border text-primary"></div>
+
+        <p>Generating overview...</p>
+
+      </div>
+
+      <div *ngIf="!loadingOverview" class="overview-text">
+
+        {{placeOverview}}
+
+      </div>
+
+    </div>
+
+    <!-- Visitor Information -->
+
+    <!-- <div class="info-card">
+
+      <div class="section-title">
+
+        <i class="bi bi-lightbulb"></i>
+
+        Visitor Information
+
+      </div>
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-clock-history"></i>
+
+          Best Time
+
+        </div>
+
+        <span>Morning / Evening</span>
+
+      </div>
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-cash-stack"></i>
+
+          Entry Fee
+
+        </div>
+
+        <span>₹30 (Approx.)</span>
+
+      </div>
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-hourglass-split"></i>
+
+          Visit Duration
+
+        </div>
+
+        <span>2–3 Hours</span>
+
+      </div>
+
+      <div class="info-row">
+
+        <div>
+
+          <i class="bi bi-bus-front"></i>
+
+          Transport
+
+        </div>
+
+        <span>Cab / Metro</span>
+
+      </div>
+
+    </div> -->
+
+    <div class="info-card">
+
+      <div class="section-title">
+
+        <i class="bi bi-lightbulb"></i>
+
+        Visitor Information
+
+      </div>
+
+      <div class="info-grid">
+
+        <div class="info-item">
+
+          <i class="bi bi-clock-history"></i>
+
+          <h6>Best Time</h6>
+
+          <p>{{placeInfo.bestTime}}</p>
+
+        </div>
+
+        <div class="info-item">
+
+          <i class="bi bi-cash-stack"></i>
+
+          <h6>Entry Fee</h6>
+
+          <p>{{placeInfo.entryFee}}</p>
+
+        </div>
+
+        <div class="info-item">
+
+          <i class="bi bi-hourglass-split"></i>
+
+          <h6>Visit Duration</h6>
+
+          <p>{{placeInfo.visitDuration}}</p>
+
+        </div>
+
+        <!-- <div class="info-item">
+
+          <i class="bi bi-bus-front"></i>
+
+          <h6>Transport</h6>
+
+          <p>{{placeInfo.transport}}</p>
+
+        </div> -->
+
+        <div class="info-item">
+
+          <i class="bi bi-clock"></i>
+
+          <h6>Timings</h6>
+
+          <p>{{placeInfo.timings}}</p>
+
+        </div>
+
+        <div class="info-item">
+
+          <i class="bi bi-calendar-event"></i>
+
+          <h6>Closed On</h6>
+
+          <p>{{placeInfo.closedOn}}</p>
+
+        </div>
+
+        <div class="info-item">
+
+          <i class="bi bi-people-fill"></i>
+
+          <h6>Family Friendly</h6>
+
+          <p>{{placeInfo.familyFriendly}}</p>
+
+        </div>
+
+        <!-- <div class="info-item">
+
+          <i class="bi bi-universal-access"></i>
+
+          <h6>Accessibility</h6>
+
+          <p>{{placeInfo.wheelchairAccessible}}</p>
+
+        </div> -->
+
+      </div>
+
+    </div>
+
+    <!-- <div class="tips-card">
+
+      <div class="section-title">
+
+        <i class="bi bi-stars"></i>
+
+        AI Travel Tips
+
+      </div>
+
+      <p>{{placeInfo.tips}}</p>
+
+    </div> -->
+
+  </div>
+
+</div>

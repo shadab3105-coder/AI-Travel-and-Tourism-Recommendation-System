@@ -1,0 +1,144 @@
+/* ================= PAGE BACKGROUND (Abstract Map SVG) ================= */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* Light gray base */
+  
+  /* The "Google Map" Style Background Pattern */
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2394a3b8' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  
+  background-attachment: fixed; /* Keeps pattern static while scrolling */
+}
+
+/* ================= PAGE LAYOUT ================= */
+.container {
+  padding-top: 40px;
+  padding-bottom: 80px;
+  max-width: 1200px;
+}
+
+h2 {
+  font-weight: 800;
+  color: #1e293b; /* Dark Slate */
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.5); /* Slight lift from bg */
+}
+
+h2::after {
+  content: ''; display: block; width: 60px; height: 4px;
+  background: linear-gradient(90deg, #ef4136, #fbb040);
+  margin: 10px auto 0; border-radius: 2px;
+}
+
+/* ================= SEARCH CARD (Glassy & Clean) ================= */
+.search-card {
+  background: rgba(255, 255, 255, 0.85); /* More transparent to see map blur */
+  backdrop-filter: blur(12px);            /* Strong blur */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08); /* Floating effect */
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.card-title {
+  font-weight: 700; color: #334155; margin-bottom: 25px;
+  text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
+  border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px;
+}
+
+/* ================= FORMS & BUTTONS ================= */
+label {
+  font-weight: 600; font-size: 0.85rem; color: #475569; margin-bottom: 8px; display: block;
+}
+
+.form-control, .form-select {
+  border: 1px solid #cbd5e1; background-color: rgba(255,255,255,0.9);
+  border-radius: 12px; padding: 12px 15px; font-weight: 500;
+  transition: all 0.3s ease; height: 50px;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #fff; border-color: #ef4136;
+  box-shadow: 0 0 0 4px rgba(239, 65, 54, 0.15); outline: none;
+}
+
+/* Primary Search Button */
+.btn-primary {
+  background: linear-gradient(135deg, #ef4136 0%, #f97316 100%);
+  border: none; font-weight: 700; height: 50px; border-radius: 12px;
+  color: white; margin-top: 29px; width: 100%; transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(239, 65, 54, 0.25);
+}
+.btn-primary:hover {
+  transform: translateY(-2px); box-shadow: 0 8px 20px rgba(239, 65, 54, 0.4);
+}
+
+/* Clear Filters */
+.btn-outline-secondary {
+  margin-top: 29px; height: 50px; border-radius: 12px; font-weight: 600;
+  border: 2px solid #cbd5e1; color: #64748b; width: 100%; background: white;
+  transition: all 0.2s;
+}
+.btn-outline-secondary:hover { background: #f1f5f9; color: #334155; border-color: #94a3b8; }
+
+/* ================= MAP SECTION ================= */
+#map {
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  border: 6px solid white;
+  overflow: hidden;
+}
+
+/* ================= HOTEL GRID LIST ================= */
+.hotels-list {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px; margin-top: 30px;
+}
+
+.hotel-item {
+  background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent */
+  border: 1px solid white;
+  border-radius: 16px; padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex; flex-direction: column; justify-content: space-between; height: 100%;
+}
+
+.hotel-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px rgba(0,0,0,0.08);
+  border-color: #ffddd6;
+}
+
+/* Hotel Info Text */
+.hotel-info h5 { margin: 0 0 8px 0; color: #1e293b; font-weight: 700; font-size: 1.2rem; }
+.hotel-info p { margin: 0 0 12px 0; color: #64748b; font-size: 0.95rem; }
+
+/* Badges */
+.rating {
+  color: #fff; background: #f59e0b; font-weight: 700; padding: 4px 10px;
+  border-radius: 8px; font-size: 0.85rem; display: inline-block; margin-right: 10px;
+}
+.price-level {
+  color: #15803d; background: #dcfce7; font-weight: 700; padding: 4px 10px;
+  border-radius: 8px; font-size: 0.85rem; display: inline-block;
+}
+
+/* Directions Button */
+.directions-btn {
+  background-color: white; color: #ef4136; border: 2px solid #ef4136;
+  padding: 10px 16px; border-radius: 50px; cursor: pointer; font-size: 0.95rem;
+  font-weight: 700; margin-top: 20px; width: 100%; transition: all 0.2s; text-transform: uppercase;
+}
+.directions-btn:hover {
+  background: linear-gradient(90deg, #ef4136, #fbb040); border-color: transparent; color: white;
+  box-shadow: 0 5px 15px rgba(239, 65, 54, 0.3);
+}
+
+/* ================= LOADING & ERROR ================= */
+.text-center p { font-size: 1.1rem; color: #475569; font-weight: 500; }
+.text-danger { color: #ef4444; font-weight: 600; background: #fee2e2; padding: 10px; border-radius: 8px; display: inline-block; }

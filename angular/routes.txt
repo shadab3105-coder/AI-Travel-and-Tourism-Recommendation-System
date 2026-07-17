@@ -1,0 +1,11 @@
+/
+/flights
+/hotels
+/search
+/bookings
+/auth/login
+/auth/register
+/payment
+/reviews
+/nearby-tourist-points
+/admin/dashboard

@@ -1,0 +1,119 @@
+<div class="container mt-4">
+  <h2 class="animate__animated animate__fadeInDown">Complete Payment</h2>
+  
+  <div class="row g-4">
+    <div class="col-md-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h5 class="card-title mb-4 fw-bold text-primary">
+            <i class="bi bi-credit-card me-2"></i> Payment Details
+          </h5>
+          
+          <div class="mb-4 p-3 bg-light rounded-3 border">
+            <h6 class="text-uppercase text-muted small fw-bold mb-3">Booking Summary</h6>
+            
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-bold text-dark">{{ displayData.title }}</span>
+              <span class="fw-bold">{{ displayData.price | currency:'INR' }}</span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="text-muted small">{{ displayData.details }}</span>
+              <span class="text-muted small">{{ displayData.passengers }}</span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="text-muted small">Taxes & Fees</span>
+              <span class="text-muted small">{{ displayData.taxes | currency:'INR' }}</span>
+            </div>
+            
+            <hr>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fw-bold fs-5">Total Amount</span>
+              <span class="fw-bold fs-4 text-success">{{ displayData.total | currency:'INR' }}</span>
+            </div>
+          </div>
+
+          <form (submit)="processPayment()">
+            <div class="alert alert-info d-flex align-items-center mb-4">
+              <i class="bi bi-info-circle-fill me-3 fs-4"></i>
+              <div>
+                <strong>Simulation Mode:</strong> No real money is charged.
+                <br><span class="small">Enter dummy data (e.g., 4242 4242 4242 4242).</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Card Number</label>
+              <div class="input-group">
+                <span class="input-group-text bg-white"><i class="bi bi-credit-card-2-front"></i></span>
+                <input type="text" class="form-control form-control-lg" 
+                       [(ngModel)]="cardDetails.number" name="number" 
+                       placeholder="0000 0000 0000 0000" maxlength="19" required>
+              </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Expiration Date</label>
+                <input type="text" class="form-control form-control-lg" 
+                       [(ngModel)]="cardDetails.expiry" name="expiry" 
+                       placeholder="MM/YY" maxlength="5" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">CVV</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
+                  <input type="password" class="form-control form-control-lg" 
+                         [(ngModel)]="cardDetails.cvv" name="cvv" 
+                         placeholder="123" maxlength="3" required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label class="form-label fw-bold">Cardholder Name</label>
+              <input type="text" class="form-control form-control-lg" 
+                     [(ngModel)]="cardDetails.name" name="name" 
+                     placeholder="Name on Card" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100 btn-lg py-3 fw-bold shadow-sm" [disabled]="isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+              {{ isLoading ? 'Processing Secure Payment...' : 'Pay ' + (displayData.total | currency:'INR') }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0 bg-white">
+        <div class="card-body text-center p-4">
+          <h6 class="fw-bold mb-3">Secure Payment</h6>
+          <div class="mb-3 text-success" style="font-size: 3rem;">
+            <i class="bi bi-shield-lock-fill"></i>
+          </div>
+          <p class="small text-muted mb-4">
+            Your payment information is encrypted with 256-bit SSL technology. It is safe and secure.
+          </p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <span class="badge bg-light text-dark border px-3 py-2">Visa</span>
+            <span class="badge bg-light text-dark border px-3 py-2">Mastercard</span>
+            <span class="badge bg-light text-dark border px-3 py-2">Amex</span>
+            <span class="badge bg-light text-dark border px-3 py-2">UPI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="payment-success-overlay" *ngIf="paymentSuccess">
+  <div class="success-card text-center">
+    <div class="icon-circle mb-3"><i class="bi bi-check-lg"></i></div>
+    <h3>Payment Successful!</h3>
+    <p class="text-muted">Redirecting to your bookings...</p>
+  </div>
+</div>

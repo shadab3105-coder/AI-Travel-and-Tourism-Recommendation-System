@@ -1,0 +1,547 @@
+<div class="container">
+
+  <h2 class="animate__animated animate__fadeInDown">
+    Book Your Next Flight
+  </h2>
+
+  <!-- SEARCH SECTION -->
+  <div class="search-card animate__animated animate__fadeInUp">
+
+    <div class="search-title">
+      <i class="bi bi-airplane-engines me-2"></i>
+      Search Flights
+    </div>
+
+    <!-- <form [formGroup]="flightForm" (ngSubmit)="searchFlights()">
+
+      <div class="row g-3">
+
+        <div class="col-md-3">
+          <label>From</label>
+          <input type="text" class="form-control" placeholder="Origin (ex: Kolkata)" formControlName="from">
+        </div>
+
+        <div class="col-md-3">
+          <label>To</label>
+          <input type="text" class="form-control" placeholder="Destination (ex: Delhi)" formControlName="to">
+        </div>
+
+        <div class="col-md-2">
+          <label>Date</label>
+          <input type="date" class="form-control" formControlName="departure">
+        </div>
+
+        <div class="col-md-2">
+          <label>Return</label>
+          <input type="date" class="form-control" formControlName="return">
+        </div>
+
+        <div class="col-md-2">
+          <label>&nbsp;</label>
+          <button type="submit" class="btn-search" [disabled]="isSearching">
+
+            {{ isSearching ? 'Finding...' : 'SEARCH' }}
+
+          </button>
+        </div>
+
+      </div>
+    </form> -->
+
+    <form [formGroup]="flightForm" (ngSubmit)="searchFlights()">
+
+      <div class="row g-3">
+
+        <!-- FROM -->
+        <div class="col-md-3">
+          <label>From</label>
+
+          <input list="airportList" class="form-control" placeholder="Select Origin City" formControlName="from"
+            (change)="validateAirports()">
+
+        </div>
+
+        <!-- TO -->
+        <div class="col-md-3">
+          <label>To</label>
+
+          <input list="airportList" class="form-control" placeholder="Select Destination City" formControlName="to"
+            (change)="validateAirports()">
+
+        </div>
+
+        <!-- Airport List -->
+        <datalist id="airportList">
+
+          <option *ngFor="let airport of airports" [value]="airport.city">
+
+          </option>
+
+        </datalist>
+
+        <!-- DATE -->
+
+        <div class="col-md-2">
+
+          <label>Date</label>
+
+          <input type="date" class="form-control" formControlName="departure">
+
+        </div>
+
+        <!-- RETURN -->
+        <!-- 
+        <div class="col-md-2">
+
+          <label>Return</label>
+
+          <input type="date" class="form-control" formControlName="return">
+
+        </div> -->
+
+        <div class="col-md-2">
+
+          <label>Sort By</label>
+
+          <select class="form-control" formControlName="sortBy">
+
+            <option value="">Recommended</option>
+
+            <option value="priceLow">
+              Price (Low → High)
+            </option>
+
+            <option value="priceHigh">
+              Price (High → Low)
+            </option>
+
+            <option value="departure">
+              Departure Time (Earliest)
+            </option>
+
+          </select>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <div class="col-md-2">
+
+          <label>&nbsp;</label>
+
+          <button class="btn-search" type="submit" [disabled]="isSearching">
+
+            {{isSearching ? 'Finding...' : 'SEARCH'}}
+
+          </button>
+
+        </div>
+
+
+
+      </div>
+
+    </form>
+
+
+  </div>
+
+
+  <!-- SEARCH RESULTS -->
+  <div *ngIf="searchResults.length > 0" class="mb-5 animate__animated animate__fadeInUp">
+
+    <h4 class="mb-3 text-primary">
+      Search Results
+      <span class="badge bg-light text-dark ms-2 border">
+        {{ searchResults.length }} Flights
+      </span>
+    </h4>
+
+    <div class="flight-results-list">
+
+      <div *ngFor="let flight of searchResults" class="ticket-card">
+
+        <!-- Background watermark -->
+        <div class="watermark-logo" [style.backgroundImage]="'url(' + flight.logo + ')'">
+        </div>
+
+
+        <!-- LEFT SIDE -->
+        <div class="ticket-left">
+
+          <div class="airline-info">
+
+            <img [src]="flight.logo" class="airline-logo-small">
+
+            <div>
+              <span class="airline-name">
+                {{ flight.airline }}
+              </span>
+
+              <span class="flight-no">
+                {{ flight.flightNumber }}
+              </span>
+            </div>
+
+          </div>
+
+
+          <!-- ROUTE -->
+          <div class="route-display">
+
+            <div class="text-center">
+              <div class="time-large">
+                {{ flight.departureTime }}
+              </div>
+
+              <div class="city-code">
+                {{ flight.from }}
+              </div>
+            </div>
+
+
+            <div class="route-line-container">
+
+              <span class="duration-text">
+                {{ flight.duration }}
+              </span>
+
+              <div class="route-line">
+                <div class="dot left"></div>
+
+                <i class="bi bi-airplane-fill plane-icon"></i>
+
+                <div class="dot right"></div>
+              </div>
+
+            </div>
+
+
+            <div class="text-center">
+
+              <div class="time-large">
+                {{ flight.arrivalTime }}
+              </div>
+
+              <div class="city-code">
+                {{ flight.to }}
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="ticket-right">
+
+          <!-- STATUS BADGE -->
+          <div class="mb-2">
+
+            <span class="badge" [ngClass]="{
+                'bg-success': flight.status === 'active',
+                'bg-warning': flight.status === 'scheduled',
+                'bg-danger': flight.status === 'cancelled',
+                'bg-info': flight.status === 'delayed'
+              }">
+
+              {{ flight.status || 'Scheduled' }}
+
+            </span>
+
+          </div>
+
+          <div class="price-tag">
+            ₹{{ flight.price }}
+          </div>
+
+          <div class="price-sub">
+            per person
+          </div>
+
+          <button class="btn btn-search w-100" style="height:45px; margin:0;" (click)="openBookingModal(flight)">
+
+            Book Now
+
+          </button>
+
+          <!-- <button class="btn btn-search w-100" style="height:45px; margin:0;" (click)="showDetails(flight)">
+
+            showdetails
+
+          </button> -->
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- OFFERS SECTION -->
+  <div class="mb-5 animate__animated animate__fadeInUp">
+
+    <h4>
+      <i class="bi bi-tag-fill text-danger"></i>
+      Exclusive Offers
+    </h4>
+
+    <div class="carousel-wrapper">
+
+      <button class="scroll-btn left" (click)="scroll(offersCarousel, 'left')">
+        &lt;
+      </button>
+
+      <button class="scroll-btn right" (click)="scroll(offersCarousel, 'right')">
+        &gt;
+      </button>
+
+      <div class="carousel-container" #offersCarousel>
+
+        <div *ngFor="let offer of offers" class="offer-card" [style.background]="offer.bg">
+
+          <div class="fw-bold text-white-50 small mb-1">
+            PROMO
+          </div>
+
+          <span class="offer-discount">
+            {{ offer.discount }}
+          </span>
+
+          <div class="fw-bold mb-3">
+            {{ offer.title }}
+          </div>
+
+          <div class="offer-code">
+
+            Code: {{ offer.code }}
+
+            <button class="copy-btn" (click)="copyCoupon(offer.code)" title="Copy">
+
+              <i class="bi bi-clipboard"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- BOOKING MODAL -->
+  <div class="modal-overlay" *ngIf="showBookingModal" (click)="closeBookingModal()">
+
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+      <button class="close-btn" (click)="closeBookingModal()">
+        &times;
+      </button>
+
+      <h4 class="mb-4 fw-bold text-center">
+        Passenger Details
+      </h4>
+
+
+      <!-- FLIGHT SUMMARY -->
+      <div class="p-3 bg-light rounded-3 mb-4 d-flex gap-3 align-items-center border">
+
+        <img [src]="selectedFlight?.logo" style="width:40px;height:40px;object-fit:contain;">
+
+        <div>
+
+          <div class="fw-bold text-dark">
+            {{ selectedFlight?.airline }}
+          </div>
+
+          <div class="small text-muted">
+            {{ selectedFlight?.from }}
+            <i class="bi bi-arrow-right"></i>
+            {{ selectedFlight?.to }}
+          </div>
+
+        </div>
+
+        <div class="ms-auto text-end">
+
+          <div *ngIf="!couponApplied" class="fw-bold text-primary">
+
+            ₹{{ selectedFlight?.price }}
+
+          </div>
+
+          <div *ngIf="couponApplied">
+
+            <div class="text-decoration-line-through text-muted small">
+              ₹{{ selectedFlight?.price }}
+            </div>
+
+            <div class="fw-bold text-success">
+              ₹{{ selectedFlight?.price -
+              (couponApplied.savings / bookingForm.value.passengers) }}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PASSENGER FORM -->
+      <form [formGroup]="bookingForm" (ngSubmit)="proceedToPayment()">
+
+        <div class="row g-2 mb-3">
+
+          <div class="col">
+            <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+          </div>
+
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+          </div>
+
+        </div>
+
+
+        <div class="mb-3">
+
+          <input type="email" class="form-control" placeholder="Email" formControlName="email">
+
+        </div>
+
+
+        <div class="row g-2 mb-3">
+
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Phone Number" formControlName="phone">
+          </div>
+
+          <div class="col-4">
+            <input type="number" class="form-control" placeholder="Pax" formControlName="passengers">
+          </div>
+
+        </div>
+
+
+        <!-- COUPON -->
+        <div class="mb-4">
+
+          <label class="form-label fw-bold text-primary">
+            Have Coupon?
+          </label>
+
+          <div class="input-group">
+
+            <input type="text" class="form-control" placeholder="Enter coupon code" [(ngModel)]="couponCode"
+              [ngModelOptions]="{standalone:true}">
+
+            <button type="button" class="btn btn-outline-primary" (click)="applyCoupon()">
+
+              Apply
+
+            </button>
+
+          </div>
+
+          <div *ngIf="couponApplied" class="mt-2 text-success fw-bold">
+
+            <i class="bi bi-check-circle-fill"></i>
+            {{ couponApplied.discount }} applied
+
+          </div>
+
+          <div *ngIf="couponError" class="mt-2 text-danger fw-bold">
+
+            <i class="bi bi-x-circle-fill"></i>
+            {{ couponError }}
+
+          </div>
+
+        </div>
+
+
+        <button type="submit" class="btn btn-search" style="margin:0;">
+
+          Proceed To Pay
+          <i class="bi bi-arrow-right ms-2"></i>
+
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+
+
+  <!-- ********************************* -->
+  <!-- MODAL -->
+
+  <div class="modal-overlay" *ngIf="showDetailsModal" (click)="closeDetailsModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+      <button class="close-btn" (click)="closeDetailsModal()">&times;</button>
+
+      <h4 class="mb-4 fw-bold text-center">
+        Flight Details
+      </h4>
+
+
+      <!-- FLIGHT SUMMARY -->
+      <div class="p-3 bg-light rounded-3 mb-4 d-flex gap-3 align-items-center border">
+
+        <img [src]="selectedFlight?.logo" style="width:40px;height:40px;object-fit:contain;">
+
+        <div>
+
+          <div class="fw-bold text-dark">
+            {{ selectedFlight?.airline }}
+          </div>
+
+          <div class="small text-muted">
+            {{ selectedFlight?.from }}
+            <i class="bi bi-arrow-right"></i>
+            {{ selectedFlight?.to }}
+          </div>
+
+        </div>
+
+        <div class="ms-auto text-end">
+
+          <div *ngIf="!couponApplied" class="fw-bold text-primary">
+
+            ₹{{ selectedFlight?.price }}
+
+          </div>
+
+          <div *ngIf="couponApplied">
+
+            <div class="text-decoration-line-through text-muted small">
+              ₹{{ selectedFlight?.price }}
+            </div>
+
+            <div class="fw-bold text-success">
+              ₹{{ selectedFlight?.price -
+              (couponApplied.savings / bookingForm.value.passengers) }}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+</div>

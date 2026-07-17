@@ -1,0 +1,418 @@
+/* Backdrop */
+.login-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  z-index: 2000;
+}
+
+/* Container */
+.login-modal-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2100;
+  pointer-events: auto;
+}
+
+/* Dialog grid: split left/right */
+.login-dialog-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 70%;
+  max-width: 1100px;
+  min-width: 560px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  position: relative;
+}
+
+/* left panel */
+.left-panel {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.25));
+  color: #fff;
+}
+
+/* image should cover */
+.left-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55);
+}
+
+/* overlay text */
+.left-caption {
+  position: relative;
+  z-index: 2;
+  padding: 28px;
+  text-align: left;
+  max-width: 85%;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* controls overlay */
+.left-controls {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  border: none;
+  cursor: pointer;
+}
+.dot.active {
+  background: #fff;
+  width: 12px;
+  height: 12px;
+}
+
+/* right panel - white form */
+.right-panel {
+  background: #fff;
+  padding: 40px 32px 32px 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* top close circle — positioned cleanly inside white section */
+.top-close-btn {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 10;
+}
+.close-circle {
+  background: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.close-circle:hover {
+  background: #f0f0f0;
+}
+
+/* titles */
+h2 {
+  margin: 12px 0 4px 0;
+  font-size: 1.7rem;
+  color: #111;
+}
+.subtle {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* radio row */
+.radio-row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 8px;
+}
+
+/* ============================= FIX: ADD INPUT FIELD STYLES ============================= */
+.form-input-container {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  color: #5f6368;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.form-input:hover {
+  border-color: #b3b3b3;
+}
+
+.form-input::placeholder {
+  color: #a0a0a0;
+  font-size: 14px;
+}
+
+/* Error state */
+.form-input.error {
+  border-color: #d32f2f;
+}
+
+.form-input.error:focus {
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+}
+
+.input-error-text {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ============================= FIX: ADD LOGIN BUTTON STYLES ============================= */
+.login-button {
+  width: 100%;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+  font-family: inherit;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.login-button:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.login-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+.login-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================= FIX: ADD FORGOT PASSWORD LINK STYLE ============================= */
+.forgot-link {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.forgot-row {
+  text-align: right;
+  margin-bottom: 8px;
+}
+
+.actions {
+  margin-top: 6px;
+}
+
+.login-error {
+  color: #b00020;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  background-color: rgba(176, 0, 32, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid #b00020;
+}
+
+/* bottom close icon — show only on mobile */
+.dialog-actions {
+  margin-top: 12px;
+  display: none; /* hidden on desktop */
+  justify-content: flex-end;
+}
+
+.close-btn-bottom {
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+/* ============================= FIX: ADD REGISTER LINK STYLE ============================= */
+.register-link {
+  text-align: center;
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* Password input container for eye icon */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 18px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn:hover {
+  color: #333;
+}
+
+/* Input field styling for uniform size and alignment */
+.mat-form-field {
+  height: 56px !important;
+  margin-bottom: 16px;
+}
+
+/* Ensure password field matches email field */
+.password-field {
+  height: 56px !important;
+}
+
+/* Login button styling */
+.mat-raised-button {
+  height: 48px !important;
+  font-size: 16px !important;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .login-dialog-grid {
+    width: 85%;
+    min-width: auto;
+  }
+  .left-panel { min-height: 420px; }
+  
+  .form-input {
+    padding: 12px 14px;
+  }
+  
+  .login-button {
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 720px) {
+  .login-dialog-grid {
+    grid-template-columns: 1fr;
+    width: 95%;
+    max-width: 600px;
+  }
+
+  .left-panel {
+    min-height: 250px;
+  }
+
+  /* Show bottom close only on mobile */
+  .dialog-actions {
+    display: flex;
+  }
+
+  /* Move top close inside cleanly for mobile */
+  .top-close-btn {
+    top: 12px;
+    right: 12px;
+  }
+
+  .right-panel {
+    padding: 24px;
+  }
+  
+  .form-input {
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+  
+  .login-button {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+}

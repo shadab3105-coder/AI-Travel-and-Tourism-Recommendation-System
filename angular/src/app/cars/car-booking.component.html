@@ -1,0 +1,46 @@
+<div class="trip-container">
+
+  <h1>Travel Itinerary Planner</h1>
+
+  <div class="form-box">
+
+    <label>Enter City</label>
+
+    <input [(ngModel)]="city" placeholder="Example: Ayodhya">
+
+    <label>Enter Interests</label>
+
+    <input [(ngModel)]="interests" placeholder="Temple, Food, Nature, Adventure">
+
+    <div class="buttons">
+
+      <button (click)="clearForm()">
+        Clear
+      </button>
+
+      <button (click)="generateTrip()">
+        Submit
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="result-box">
+
+    <div *ngIf="loading">
+      Generating itinerary...
+    </div>
+
+    <div *ngIf="itinerary">
+
+      <h3>Generated Itinerary</h3>
+
+      <pre>{{ itinerary }}</pre>
+
+    </div>
+
+  </div>
+
+</div>

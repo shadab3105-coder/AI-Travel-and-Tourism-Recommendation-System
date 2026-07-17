@@ -1,0 +1,151 @@
+<!-- Material Symbols (eye icon & close icon) -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<!-- backdrop (only when not opened as MatDialog modal) -->
+<div
+  class="login-modal-backdrop"
+  (click)="onBackdropClick($event)"
+  *ngIf="isOpen && !isModal"
+  aria-hidden="true">
+</div>
+
+<!-- container -->
+<div
+  class="login-modal-container"
+  *ngIf="isOpen"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="login-title">
+
+  <div class="login-dialog-grid" tabindex="-1" aria-describedby="login-description">
+
+    <!-- LEFT: 50% image slider -->
+    <div class="left-panel" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+      <img class="left-image" [src]="images[currentIndex]" alt="slide image" />
+      <div class="left-caption">
+        <ng-container [ngSwitch]="currentIndex">
+          <p *ngSwitchCase="0"><strong>Sign up now to join</strong><br />10 crore+ travellers</p>
+          <p *ngSwitchCase="1"><strong>Discover great hotels</strong><br />at great rates</p>
+          <p *ngSwitchDefault><strong>Lock flight prices</strong><br />and pay later</p>
+        </ng-container>
+      </div>
+
+      <!-- Slider Controls -->
+      <div class="left-controls">
+        <button class="icon-btn" (click)="prev()" aria-label="Previous">&lsaquo;</button>
+
+        <div class="dots">
+          <button
+            *ngFor="let im of images; let i = index"
+            class="dot"
+            [class.active]="i === currentIndex"
+            (click)="goTo(i)"
+            [attr.aria-label]="'Go to slide ' + (i + 1)">
+          </button>
+        </div>
+
+        <button class="icon-btn" (click)="next()" aria-label="Next">&rsaquo;</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div class="right-panel">
+
+      <!-- CLOSE BUTTON (Single, heavy bold cross) -->
+      <div class="top-close-btn" aria-hidden="true">
+        <button class="close-circle" (click)="close()" aria-label="Close dialog">
+          <span class="material-symbols-outlined close-icon-bold">close</span>
+        </button>
+      </div>
+
+      <h2 id="login-title">Login to Your Account</h2>
+      <p id="login-description" class="subtle">Access your personalized travel experience</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submit()" autocomplete="off" novalidate>
+
+        <!-- Hidden autofill blockers -->
+        <input autocomplete="username" style="position:absolute; left:-9999px; top:-9999px;" />
+        <input autocomplete="new-password" style="position:absolute; left:-9999px; top:-9999px;" />
+
+        <!-- ROLE SWITCH -->
+        <mat-radio-group formControlName="role" class="radio-row">
+          <mat-radio-button value="user">User Login</mat-radio-button>
+          <mat-radio-button value="admin">Admin Login</mat-radio-button>
+        </mat-radio-group>
+
+        <!-- EMAIL -->
+        <div class="form-input-container">
+          <label class="form-label" for="email">Email</label>
+          <input
+            id="email"
+            class="form-input"
+            type="email"
+            formControlName="email"
+            autocomplete="off"
+            placeholder="Enter your email" />
+
+          <span class="input-error-text" *ngIf="email?.touched && email?.hasError('required')">Email is required.</span>
+          <span class="input-error-text" *ngIf="email?.touched && email?.hasError('email')">Enter a valid email.</span>
+          <span class="input-error-text" *ngIf="fieldErrors['email']">{{ fieldErrors['email'] }}</span>
+        </div>
+
+        <!-- PASSWORD with eye icon -->
+        <div class="form-input-container">
+          <label class="form-label" for="password">Password</label>
+          <div class="password-input-container">
+            <input
+              id="password"
+              class="form-input"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              autocomplete="new-password"
+              placeholder="Enter your password" />
+            <button
+              class="password-toggle-btn"
+              type="button"
+              (click)="togglePassword()"
+              aria-label="Toggle password visibility">
+              <span class="material-symbols-outlined">
+                {{ showPassword ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+
+          <span class="input-error-text" *ngIf="password?.touched && password?.hasError('required')">Password is required.</span>
+          <span class="input-error-text" *ngIf="password?.touched && password?.hasError('minlength')">
+            Password must be at least 6 characters.
+          </span>
+          <span class="input-error-text" *ngIf="fieldErrors['password']">{{ fieldErrors['password'] }}</span>
+        </div>
+
+        <div class="forgot-row">
+          <a href="#" (click)="$event.preventDefault()">Forgot your password?</a>
+        </div>
+
+        <div class="actions">
+          <button class="login-button" type="submit" [disabled]="isLoading || loginForm.invalid">
+            {{ isLoading ? 'Please wait...' : 'LOGIN' }}
+          </button>
+        </div>
+
+        <div *ngIf="errorMessage" class="login-error">
+          {{ errorMessage }}
+        </div>
+
+      </form>
+
+      <div class="register-row">
+        Don't have an account?
+        <a href="#" (click)="openRegisterModal(); $event.preventDefault()">Register Now</a>
+      </div>
+
+      <!-- bottom close (same heavy icon) -->
+      <div class="dialog-actions" aria-hidden="true">
+        <button class="close-btn-bottom" (click)="close()" aria-label="Close dialog">
+          <span class="material-symbols-outlined close-icon-bold">close</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

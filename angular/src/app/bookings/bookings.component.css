@@ -1,0 +1,355 @@
+/* GLOBAL CONTAINER */
+.bookings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  /* Modern Font Stack */
+  background-color: #f8f9fc;
+  /* Very subtle background for contrast */
+  min-height: 100vh;
+}
+
+/* HEADERS & TITLES */
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+/* BUTTONS (Pill Shape) */
+.btn-theme-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  color: white;
+  padding: 0.75rem 1.75rem;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-theme-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+  color: white;
+}
+
+/* SECTION TITLES */
+.section-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+/* 🌟 MODERN CARD DESIGN */
+.trip-card {
+  background: white;
+  border-radius: 24px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+  /* Soft diffuse shadow */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  cursor: pointer;
+}
+
+.trip-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Banner (Top Gradient) */
+.card-banner {
+  height: 6px;
+  background: linear-gradient(90deg, #4f46e5, #818cf8);
+}
+
+.card-body-custom {
+  padding: 2rem;
+}
+
+/* Icon Box */
+.trip-icon {
+  width: 56px;
+  height: 56px;
+  background: #f1f5f9;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.3s;
+}
+
+.trip-card:hover .trip-icon {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+/* Typography Inside Card */
+.trip-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.trip-desc {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Footer of Card */
+.card-meta {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meta-date {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.meta-price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+/* STATUS BADGES */
+.badge-custom {
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.badge-confirmed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-pending {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+/* 📜 HISTORY LIST DESIGN */
+.history-row {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem 2rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f1f5f9;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.history-row:hover {
+  background: #f8fafc;
+  transform: scale(1.01);
+  border-color: #e2e8f0;
+}
+
+.history-icon {
+  width: 48px;
+  height: 48px;
+  background: #f8fafc;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  margin-right: 1.5rem;
+}
+
+/* EMPTY STATE */
+.empty-box {
+  background: white;
+  border-radius: 24px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* ***************************** */
+
+/* ================= HEADER ================= */
+
+.page-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 30px;
+
+  margin-bottom: 50px;
+
+  padding: 25px 0;
+
+}
+
+.header-left {
+
+  flex: 1;
+
+}
+
+.header-tag {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  background: #eaf4ff;
+
+  color: #2563eb;
+
+  padding: 8px 16px;
+
+  border-radius: 30px;
+
+  font-size: .82rem;
+
+  font-weight: 700;
+
+  margin-bottom: 16px;
+
+}
+
+.header-tag i {
+
+  font-size: .85rem;
+
+}
+
+.header-left h1 {
+
+  font-size: 3.2rem;
+
+  font-weight: 800;
+
+  color: #0f172a;
+
+  margin-bottom: 12px;
+
+  letter-spacing: -1px;
+
+}
+
+.header-left p {
+
+  font-size: 1.08rem;
+
+  color: #64748b;
+
+  max-width: 650px;
+
+  margin: 0;
+
+  line-height: 1.6;
+
+}
+
+.btn-new-trip {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-weight: 700;
+
+  padding: 15px 30px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 10px 25px rgba(37, 99, 235, .25);
+
+  transition: .3s;
+
+  min-width: 210px;
+
+}
+
+.btn-new-trip:hover {
+
+  transform: translateY(-3px);
+
+  color: #fff;
+
+  box-shadow: 0 16px 35px rgba(37, 99, 235, .35);
+
+}
+
+.btn-new-trip i {
+
+  font-size: 1.1rem;
+
+}
+
+/* Mobile */
+
+@media(max-width:768px) {
+
+  .page-header {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+  .header-left h1 {
+
+    font-size: 2.3rem;
+
+  }
+
+  .btn-new-trip {
+
+    width: 100%;
+
+  }
+
+}

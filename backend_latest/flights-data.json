@@ -1,0 +1,866 @@
+[
+  {
+    "_id": "flight_001",
+    "flightNumber": "AI101",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "08:00"
+    },
+    "arrival": {
+      "airport": "BOM",
+      "city": "Mumbai",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "10:15"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4500, "seats": 150, "availableSeats": 45 },
+      "business": { "price": 12500, "seats": 20, "availableSeats": 8 },
+      "first": { "price": 25000, "seats": 8, "availableSeats": 3 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_002",
+    "flightNumber": "AI102",
+    "airline": "Air India",
+    "departure": {
+      "airport": "BOM",
+      "city": "Mumbai",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "11:30"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:45"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4600, "seats": 150, "availableSeats": 52 },
+      "business": { "price": 12800, "seats": 20, "availableSeats": 12 },
+      "first": { "price": 25500, "seats": 8, "availableSeats": 5 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_003",
+    "flightNumber": "AI201",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "14:00"
+    },
+    "arrival": {
+      "airport": "BLR",
+      "city": "Bangalore",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "16:30"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 5200, "seats": 150, "availableSeats": 38 },
+      "business": { "price": 14200, "seats": 20, "availableSeats": 15 },
+      "first": { "price": 28500, "seats": 8, "availableSeats": 6 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_004",
+    "flightNumber": "AI202",
+    "airline": "Air India",
+    "departure": {
+      "airport": "BLR",
+      "city": "Bangalore",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "17:45"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "20:15"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 5300, "seats": 150, "availableSeats": 41 },
+      "business": { "price": 14500, "seats": 20, "availableSeats": 18 },
+      "first": { "price": 29000, "seats": 8, "availableSeats": 7 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_005",
+    "flightNumber": "AI301",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "06:30"
+    },
+    "arrival": {
+      "airport": "CCU",
+      "city": "Kolkata",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "08:45"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3800, "seats": 150, "availableSeats": 67 },
+      "business": { "price": 10500, "seats": 20, "availableSeats": 14 },
+      "first": { "price": 21000, "seats": 8, "availableSeats": 4 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_006",
+    "flightNumber": "AI302",
+    "airline": "Air India",
+    "departure": {
+      "airport": "CCU",
+      "city": "Kolkata",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "10:00"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "12:15"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3900, "seats": 150, "availableSeats": 73 },
+      "business": { "price": 10800, "seats": 20, "availableSeats": 16 },
+      "first": { "price": 21500, "seats": 8, "availableSeats": 5 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_007",
+    "flightNumber": "AI401",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "09:15"
+    },
+    "arrival": {
+      "airport": "AMD",
+      "city": "Ahmedabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "11:00"
+    },
+    "duration": "1h 45m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3200, "seats": 150, "availableSeats": 89 },
+      "business": { "price": 8800, "seats": 20, "availableSeats": 19 },
+      "first": { "price": 17500, "seats": 8, "availableSeats": 8 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_008",
+    "flightNumber": "AI402",
+    "airline": "Air India",
+    "departure": {
+      "airport": "AMD",
+      "city": "Ahmedabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "12:30"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "14:15"
+    },
+    "duration": "1h 45m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3300, "seats": 150, "availableSeats": 95 },
+      "business": { "price": 9100, "seats": 20, "availableSeats": 17 },
+      "first": { "price": 18000, "seats": 8, "availableSeats": 6 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_009",
+    "flightNumber": "AI501",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "07:00"
+    },
+    "arrival": {
+      "airport": "HYD",
+      "city": "Hyderabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "09:15"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4100, "seats": 150, "availableSeats": 78 },
+      "business": { "price": 11300, "seats": 20, "availableSeats": 13 },
+      "first": { "price": 22500, "seats": 8, "availableSeats": 4 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_010",
+    "flightNumber": "AI502",
+    "airline": "Air India",
+    "departure": {
+      "airport": "HYD",
+      "city": "Hyderabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "10:45"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:00"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4200, "seats": 150, "availableSeats": 82 },
+      "business": { "price": 11600, "seats": 20, "availableSeats": 15 },
+      "first": { "price": 23000, "seats": 8, "availableSeats": 5 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_011",
+    "flightNumber": "AI601",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:30"
+    },
+    "arrival": {
+      "airport": "GOI",
+      "city": "Goa",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "16:00"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4800, "seats": 150, "availableSeats": 56 },
+      "business": { "price": 13200, "seats": 20, "availableSeats": 11 },
+      "first": { "price": 26500, "seats": 8, "availableSeats": 3 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_012",
+    "flightNumber": "AI602",
+    "airline": "Air India",
+    "departure": {
+      "airport": "GOI",
+      "city": "Goa",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "17:30"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "20:00"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4900, "seats": 150, "availableSeats": 61 },
+      "business": { "price": 13500, "seats": 20, "availableSeats": 13 },
+      "first": { "price": 27000, "seats": 8, "availableSeats": 4 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_013",
+    "flightNumber": "AI701",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "15:45"
+    },
+    "arrival": {
+      "airport": "IXC",
+      "city": "Chandigarh",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "16:45"
+    },
+    "duration": "1h 00m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2500, "seats": 150, "availableSeats": 112 },
+      "business": { "price": 6800, "seats": 20, "availableSeats": 18 },
+      "first": { "price": 13500, "seats": 8, "availableSeats": 7 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_014",
+    "flightNumber": "AI702",
+    "airline": "Air India",
+    "departure": {
+      "airport": "IXC",
+      "city": "Chandigarh",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "18:00"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "19:00"
+    },
+    "duration": "1h 00m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2600, "seats": 150, "availableSeats": 118 },
+      "business": { "price": 7100, "seats": 20, "availableSeats": 16 },
+      "first": { "price": 14000, "seats": 8, "availableSeats": 6 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_015",
+    "flightNumber": "AI801",
+    "airline": "Air India",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "10:30"
+    },
+    "arrival": {
+      "airport": "LKO",
+      "city": "Lucknow",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "11:45"
+    },
+    "duration": "1h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2200, "seats": 150, "availableSeats": 134 },
+      "business": { "price": 6000, "seats": 20, "availableSeats": 19 },
+      "first": { "price": 12000, "seats": 8, "availableSeats": 8 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_016",
+    "flightNumber": "AI802",
+    "airline": "Air India",
+    "departure": {
+      "airport": "LKO",
+      "city": "Lucknow",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:15"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "14:30"
+    },
+    "duration": "1h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2300, "seats": 150, "availableSeats": 128 },
+      "business": { "price": 6300, "seats": 20, "availableSeats": 17 },
+      "first": { "price": 12500, "seats": 8, "availableSeats": 7 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_017",
+    "flightNumber": "SG101",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "08:30"
+    },
+    "arrival": {
+      "airport": "BOM",
+      "city": "Mumbai",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "10:45"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4200, "seats": 150, "availableSeats": 67 },
+      "business": { "price": 11500, "seats": 20, "availableSeats": 14 },
+      "first": { "price": 23000, "seats": 8, "availableSeats": 5 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_018",
+    "flightNumber": "SG102",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "BOM",
+      "city": "Mumbai",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "12:00"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "14:15"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4300, "seats": 150, "availableSeats": 71 },
+      "business": { "price": 11800, "seats": 20, "availableSeats": 16 },
+      "first": { "price": 23500, "seats": 8, "availableSeats": 6 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_019",
+    "flightNumber": "SG201",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "14:30"
+    },
+    "arrival": {
+      "airport": "BLR",
+      "city": "Bangalore",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "17:00"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4900, "seats": 150, "availableSeats": 45 },
+      "business": { "price": 13500, "seats": 20, "availableSeats": 12 },
+      "first": { "price": 27000, "seats": 8, "availableSeats": 4 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_020",
+    "flightNumber": "SG202",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "BLR",
+      "city": "Bangalore",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "18:15"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "20:45"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 5000, "seats": 150, "availableSeats": 48 },
+      "business": { "price": 13800, "seats": 20, "availableSeats": 15 },
+      "first": { "price": 27500, "seats": 8, "availableSeats": 5 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_021",
+    "flightNumber": "SG301",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "07:15"
+    },
+    "arrival": {
+      "airport": "CCU",
+      "city": "Kolkata",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "09:30"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3500, "seats": 150, "availableSeats": 89 },
+      "business": { "price": 9600, "seats": 20, "availableSeats": 18 },
+      "first": { "price": 19000, "seats": 8, "availableSeats": 7 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_022",
+    "flightNumber": "SG302",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "CCU",
+      "city": "Kolkata",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "10:45"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:00"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3600, "seats": 150, "availableSeats": 92 },
+      "business": { "price": 9900, "seats": 20, "availableSeats": 16 },
+      "first": { "price": 19500, "seats": 8, "availableSeats": 6 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_023",
+    "flightNumber": "SG401",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "09:45"
+    },
+    "arrival": {
+      "airport": "AMD",
+      "city": "Ahmedabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "11:30"
+    },
+    "duration": "1h 45m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2900, "seats": 150, "availableSeats": 105 },
+      "business": { "price": 7900, "seats": 20, "availableSeats": 19 },
+      "first": { "price": 15500, "seats": 8, "availableSeats": 8 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_024",
+    "flightNumber": "SG402",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "AMD",
+      "city": "Ahmedabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:00"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "14:45"
+    },
+    "duration": "1h 45m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3000, "seats": 150, "availableSeats": 108 },
+      "business": { "price": 8200, "seats": 20, "availableSeats": 17 },
+      "first": { "price": 16000, "seats": 8, "availableSeats": 7 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_025",
+    "flightNumber": "SG501",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "07:45"
+    },
+    "arrival": {
+      "airport": "HYD",
+      "city": "Hyderabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "10:00"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3800, "seats": 150, "availableSeats": 76 },
+      "business": { "price": 10400, "seats": 20, "availableSeats": 14 },
+      "first": { "price": 20500, "seats": 8, "availableSeats": 5 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_026",
+    "flightNumber": "SG502",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "HYD",
+      "city": "Hyderabad",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "11:30"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:45"
+    },
+    "duration": "2h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 3900, "seats": 150, "availableSeats": 79 },
+      "business": { "price": 10700, "seats": 20, "availableSeats": 15 },
+      "first": { "price": 21000, "seats": 8, "availableSeats": 6 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_027",
+    "flightNumber": "SG601",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:45"
+    },
+    "arrival": {
+      "airport": "GOI",
+      "city": "Goa",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "16:15"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4500, "seats": 150, "availableSeats": 63 },
+      "business": { "price": 12400, "seats": 20, "availableSeats": 12 },
+      "first": { "price": 24500, "seats": 8, "availableSeats": 4 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_028",
+    "flightNumber": "SG602",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "GOI",
+      "city": "Goa",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "17:45"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "20:15"
+    },
+    "duration": "2h 30m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 4600, "seats": 150, "availableSeats": 67 },
+      "business": { "price": 12700, "seats": 20, "availableSeats": 14 },
+      "first": { "price": 25000, "seats": 8, "availableSeats": 5 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_029",
+    "flightNumber": "SG701",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "16:15"
+    },
+    "arrival": {
+      "airport": "IXC",
+      "city": "Chandigarh",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "17:15"
+    },
+    "duration": "1h 00m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2400, "seats": 150, "availableSeats": 115 },
+      "business": { "price": 6500, "seats": 20, "availableSeats": 19 },
+      "first": { "price": 12800, "seats": 8, "availableSeats": 8 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_030",
+    "flightNumber": "SG702",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "IXC",
+      "city": "Chandigarh",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "18:30"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "19:30"
+    },
+    "duration": "1h 00m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2500, "seats": 150, "availableSeats": 121 },
+      "business": { "price": 6800, "seats": 20, "availableSeats": 17 },
+      "first": { "price": 13300, "seats": 8, "availableSeats": 7 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_031",
+    "flightNumber": "SG801",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "11:00"
+    },
+    "arrival": {
+      "airport": "LKO",
+      "city": "Lucknow",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "12:15"
+    },
+    "duration": "1h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2100, "seats": 150, "availableSeats": 137 },
+      "business": { "price": 5700, "seats": 20, "availableSeats": 20 },
+      "first": { "price": 11200, "seats": 8, "availableSeats": 8 }
+    },
+    "status": "scheduled"
+  },
+  {
+    "_id": "flight_032",
+    "flightNumber": "SG802",
+    "airline": "SpiceJet",
+    "departure": {
+      "airport": "LKO",
+      "city": "Lucknow",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "13:45"
+    },
+    "arrival": {
+      "airport": "DEL",
+      "city": "Delhi",
+      "country": "India",
+      "date": "2024-12-25",
+      "time": "15:00"
+    },
+    "duration": "1h 15m",
+    "aircraft": "Boeing 737-800",
+    "class": {
+      "economy": { "price": 2200, "seats": 150, "availableSeats": 131 },
+      "business": { "price": 6000, "seats": 20, "availableSeats": 18 },
+      "first": { "price": 11800, "seats": 8, "availableSeats": 7 }
+    },
+    "status": "scheduled"
+  }
+]

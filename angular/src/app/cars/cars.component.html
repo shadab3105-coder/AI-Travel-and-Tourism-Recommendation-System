@@ -1,0 +1,147 @@
+<div class="container">
+
+  <div class="text-center mb-5 animate__animated animate__fadeInDown">
+    <h1 class="hero-title">Need a Rental? <span class="text-gradient">Look No Further.</span></h1>
+    <p class="hero-subtitle">From daily commutes to outstation getaways, find the perfect wheels for your journey.</p>
+  </div>
+
+  <div class="cars-card animate__animated animate__fadeInUp">
+    <div class="cars-tabs">
+      <div class="cars-tab" [class.active]="activeTab === 'outstation'" (click)="selectTab('outstation')">
+        <i class="bi bi-signpost-split"></i> Outstation
+      </div>
+      <div class="cars-tab" [class.active]="activeTab === 'local'" (click)="selectTab('local')">
+        <i class="bi bi-geo-alt"></i> Local Hourly
+      </div>
+      <div class="cars-tab" [class.active]="activeTab === 'airport'" (click)="selectTab('airport')">
+        <i class="bi bi-airplane"></i> Airport
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'outstation'" class="animate__animated animate__fadeIn">
+      <div class="trip-options">
+        <label><input type="radio" name="trip" checked> One Way</label>
+        <label><input type="radio" name="trip"> Round Trip</label>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label>From City</label>
+          <div class="cars-input"><input type="text" placeholder="Start City" /></div>
+        </div>
+        <div class="col-md-3">
+          <label>To City</label>
+          <div class="cars-input"><input type="text" placeholder="Destination" /></div>
+        </div>
+        <div class="col-md-2">
+          <label>Pick Up Date</label>
+          <div class="cars-input"><input type="date" /></div>
+        </div>
+        <div class="col-md-2">
+          <label>Pick Up Time</label>
+          <div class="cars-input"><input type="time" /></div>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button class="cars-search-btn">SEARCH</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'local'" class="animate__animated animate__fadeIn">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label>City</label>
+          <div class="cars-input"><input type="text" placeholder="Enter City" /></div>
+        </div>
+        <div class="col-md-4">
+          <label>Package</label>
+          <div class="cars-input">
+            <select>
+              <option>8 Hrs / 80 KM</option>
+              <option>12 Hrs / 120 KM</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <button class="cars-search-btn">SEARCH CABS</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'airport'" class="animate__animated animate__fadeIn">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label>City</label>
+          <div class="cars-input"><input type="text" placeholder="Enter City" /></div>
+        </div>
+        <div class="col-md-4">
+          <label>Trip Type</label>
+          <div class="cars-input">
+            <select>
+              <option>Pickup from Airport</option>
+              <option>Drop to Airport</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <button class="cars-search-btn">SEARCH CABS</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-5 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+    <h4><i class="bi bi-tag-fill text-danger"></i> Rental Deals</h4>
+    <div class="carousel-wrapper">
+      <button class="scroll-btn left" (click)="scroll(offersCarousel, 'left')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <button class="scroll-btn right" (click)="scroll(offersCarousel, 'right')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+
+      <div class="carousel-container" #offersCarousel>
+        <div *ngFor="let offer of offers" class="offer-card" [style.background]="offer.bg">
+          <span class="offer-discount">{{ offer.discount }}</span>
+          <div class="fw-bold mb-2">{{ offer.title }}</div>
+          <div class="offer-code">
+            Code: {{ offer.code }}
+            <button class="copy-btn" (click)="copyCoupon(offer.code)" title="Copy coupon code">
+              <i class="bi bi-clipboard"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-5 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+    <h4><i class="bi bi-car-front-fill text-primary"></i> Popular Fleets</h4>
+    <div class="cars-grid">
+      <div *ngFor="let car of availableCars" class="car-card">
+        <img [src]="car.image" class="car-image">
+        <div class="car-details">
+          <div class="car-type">{{ car.type }}</div>
+          <div class="car-name">{{ car.name }}</div>
+          <div class="car-features">
+            <span class="car-feature"><i class="bi bi-people-fill"></i> {{ car.seats }} Seats</span>
+            <span class="car-feature"><i class="bi bi-fuel-pump-fill"></i> {{ car.fuel }}</span>
+          </div>
+          <div class="car-footer">
+            <div>
+              <span class="car-price">₹{{ car.price }}</span>
+              <span class="car-unit"> {{ car.unit }}</span>
+            </div>
+            <button class="btn-book" (click)="bookCar(car)">Book</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

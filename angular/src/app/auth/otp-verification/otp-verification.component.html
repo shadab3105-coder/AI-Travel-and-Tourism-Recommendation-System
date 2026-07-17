@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="otp-container">
+        <h2 class="otp-title">Verify Your Mobile</h2>
+        
+        <!-- Error message display -->
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+        
+        <div class="otp-subtitle">
+          <p>We've sent a 6-digit verification code to:</p>
+          <strong>{{ userData?.mobileNumber }}</strong>
+          <p class="mt-2">Check your messages and enter the code below</p>
+        </div>
+        
+        <form (ngSubmit)="onVerify()">
+          <div class="otp-input-container">
+            <input type="text" class="otp-input" 
+                   [(ngModel)]="otp" name="otp" 
+                   placeholder="•" 
+                   maxlength="6"
+                   pattern="[0-9]{6}"
+                   required />
+          </div>
+          
+          <div class="otp-buttons">
+            <button type="submit" class="btn-verify" [disabled]="isLoading">
+              <span *ngIf="!isLoading">Verify & Create Account</span>
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span *ngIf="isLoading"> Verifying...</span>
+            </button>
+            
+            <div class="text-center">
+              <p class="mb-2">
+                Didn't receive the code? 
+                <button type="button" class="btn-resend" 
+                        (click)="onResendOTP()" 
+                        [disabled]="!canResend || isLoading">
+                  Resend OTP
+                </button>
+              </p>
+              <small *ngIf="!canResend" class="countdown-text">
+                Resend available in {{ countdown }} seconds
+              </small>
+            </div>
+          </div>
+        </form>
+        
+        <div class="text-center mt-4">
+          <button type="button" class="btn-resend" (click)="onBack()">
+            ← Back to Registration
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

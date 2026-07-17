@@ -1,0 +1,184 @@
+<div class="bookings-container">
+
+  <div class="d-flex justify-content-between align-items-end mb-5 page-header">
+    <div>
+      <h1>My Journeys</h1>
+      <p>Track your upcoming adventures and past history.</p>
+    </div>
+    <!-- <a routerLink="/flights" class="btn btn-theme-primary">
+      <i class="bi bi-plus-lg me-2"></i>New Trip
+    </a> -->
+    <a routerLink="/flights" class="btn-new-trip">
+
+      <i class="bi bi-plus-circle-fill me-2"></i>
+
+      Book New Flight
+
+    </a>
+
+  </div>
+  <!-- 
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <span class="header-tag">
+        <i class="bi bi-airplane-fill"></i>
+        Travel Dashboard
+      </span>
+
+      <h1>My Journeys</h1>
+
+      <p>
+        View your upcoming trips, booking history and manage all your travel plans in one place.
+      </p>
+
+    </div>
+
+    <a routerLink="/flights" class="btn-new-trip">
+
+      <i class="bi bi-plus-circle-fill me-2"></i>
+
+      Book New Flight
+
+    </a>
+
+  </div> -->
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+  </div>
+
+  <div *ngIf="!loading && upcomingBookings.length === 0 && pastBookings.length === 0" class="empty-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="80" class="mb-4 opacity-75">
+    <h3 class="fw-bold text-dark">No trips booked yet</h3>
+    <p class="text-muted mb-4">Your travel history is empty. Time to change that?</p>
+    <a routerLink="/flights" class="btn btn-outline-dark rounded-pill px-4 py-2">Start Exploring</a>
+  </div>
+
+  <div *ngIf="!loading && (upcomingBookings.length > 0 || pastBookings.length > 0)">
+
+    <div *ngIf="upcomingBookings.length > 0" class="mb-5">
+      <span class="section-label">Upcoming</span>
+
+      <div class="row g-4">
+        <div *ngFor="let booking of upcomingBookings" class="col-md-6 col-lg-4">
+          <div class="trip-card" (click)="viewInvoice(booking.id)">
+            <div class="card-banner"></div>
+            <div class="card-body-custom">
+
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="trip-icon">
+                  <i [class]="booking.icon"></i>
+                </div>
+                <span class="badge-custom"
+                  [ngClass]="booking.status === 'confirmed' ? 'badge-confirmed' : 'badge-pending'">
+                  {{ booking.status }}
+                </span>
+              </div>
+
+              <h3 class="trip-name">{{ booking.title }}</h3>
+              <p class="trip-desc">{{ booking.details }}</p>
+
+              <div class="card-meta">
+                <div class="meta-date">
+                  <i class="bi bi-calendar4 me-2"></i>{{ booking.date | date:'mediumDate' }}
+                </div>
+                <div class="meta-price">{{ booking.price | currency:'INR' }}</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="pastBookings.length > 0">
+      <span class="section-label">Travel History</span>
+
+      <div class="history-list">
+        <div *ngFor="let booking of pastBookings" class="history-row" (click)="viewInvoice(booking.id)"
+          style="cursor: pointer;">
+
+          <div class="d-flex align-items-center flex-grow-1">
+            <div class="history-icon">
+              <i class="bi bi-airplane-fill"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem;">{{ booking.title }}</h6>
+              <small class="text-muted">{{ booking.details }}</small>
+            </div>
+          </div>
+
+          <div class="text-end d-none d-sm-block ps-4">
+            <div class="fw-bold text-dark fs-5">{{ booking.price | currency:'INR' }}</div>
+            <small class="text-muted">{{ booking.date | date:'MMMM d, y' }}</small>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="invoiceModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 24px; overflow: hidden;">
+
+      <div class="modal-header border-0 bg-primary text-white p-4">
+        <h5 class="modal-title fw-bold"><i class="bi bi-receipt-cutoff me-2"></i>Receipt</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body p-4 bg-white">
+        <div *ngIf="invoiceLoading" class="text-center py-5">
+          <div class="spinner-border text-primary" role="status"></div>
+        </div>
+
+        <div *ngIf="!invoiceLoading && selectedBooking">
+          <div class="text-center mb-5 mt-2">
+            <h1 class="display-5 fw-bold text-dark">{{ selectedBooking.total | currency:'INR' }}</h1>
+            <div class="text-success fw-bold text-uppercase small mt-1"><i class="bi bi-check-circle-fill me-1"></i>
+              Payment Successful</div>
+          </div>
+
+          <div class="p-3 bg-light rounded-4 mb-4">
+            <div class="row g-3">
+              <div class="col-6">
+                <span class="d-block text-muted small fw-bold text-uppercase">Reference</span>
+                <span class="fw-bold font-monospace text-dark">{{ selectedBooking.ref }}</span>
+              </div>
+              <div class="col-6 text-end">
+                <span class="d-block text-muted small fw-bold text-uppercase">Date</span>
+                <span class="fw-bold text-dark">{{ selectedBooking.date | date:'mediumDate' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="selectedBooking.snapshot">
+            <h6 class="fw-bold text-primary mb-3">Trip Details</h6>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Airline</span>
+              <span class="fw-bold">{{ selectedBooking.snapshot.airline }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Flight</span>
+              <span class="fw-bold">{{ selectedBooking.snapshot.flightNumber }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Route</span>
+              <span class="fw-bold text-end">{{ selectedBooking.snapshot.route }}</span>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <div class="d-grid">
+            <button class="btn btn-primary rounded-pill py-2 fw-bold" onclick="window.print()">Download Receipt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

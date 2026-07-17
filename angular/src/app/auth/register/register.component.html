@@ -1,0 +1,369 @@
+<!-- Material Symbols (eye icon & close icon) -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<!-- backdrop (only when not opened as MatDialog modal) -->
+<div
+  class="register-modal-backdrop"
+  (click)="onBackdropClick($event)"
+  *ngIf="isOpen && !isModal"
+  aria-hidden="true">
+</div>
+
+<!-- container -->
+<div
+  class="register-modal-container"
+  *ngIf="isOpen"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="register-title">
+
+  <div class="register-dialog-grid" tabindex="-1" aria-describedby="register-description">
+
+    <!-- LEFT: 50% image slider -->
+    <div class="left-panel" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+      <img class="left-image" [src]="images[currentIndex]" alt="slide image" />
+      
+      <!-- Slider Controls -->
+      <div class="left-controls">
+        <button class="icon-btn" (click)="prev()" aria-label="Previous">&lsaquo;</button>
+
+        <div class="dots">
+          <button
+            *ngFor="let im of images; let i = index"
+            class="dot"
+            [class.active]="i === currentIndex"
+            (click)="goTo(i)"
+            [attr.aria-label]="'Go to slide ' + (i + 1)">
+          </button>
+        </div>
+
+        <button class="icon-btn" (click)="next()" aria-label="Next">&rsaquo;</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: registration form -->
+    <div class="right-panel">
+
+      <!-- CLOSE BUTTON -->
+      <div class="top-close-btn">
+        <button class="close-circle" (click)="close()" aria-label="Close dialog">
+          <span class="material-symbols-outlined close-icon-bold">close</span>
+        </button>
+      </div>
+
+      <!-- STEP 1: Registration Form -->
+      <div>
+        <h1 id="register-title" *ngIf="!otpSent">Create Account</h1>
+        <h1 id="register-title" *ngIf="otpSent">Verify Your Phone</h1>
+        <p id="register-description" class="subtle" *ngIf="!otpSent">Join our community of happy travellers</p>
+
+        <!-- OTP Sent Message -->
+        <div *ngIf="otpSentMessage" class="otp-sent-message">
+          {{ otpSentMessage }}
+        </div>
+
+        <!-- Registration Form -->
+        <form [formGroup]="registerForm" (ngSubmit)="submitRegistration()" autocomplete="off" novalidate *ngIf="!otpSent">
+
+          <!-- Hidden autofill blockers -->
+          <input autocomplete="username" style="position:absolute; left:-9999px; top:-9999px;" />
+          <input autocomplete="new-password" style="position:absolute; left:-9999px; top:-9999px;" />
+
+          <!-- FIRST NAME -->
+          <div class="form-input-container">
+            <label class="form-label" for="firstName">First Name</label>
+            <input
+              id="firstName"
+              class="form-input"
+              type="text"
+              formControlName="firstName"
+              autocomplete="given-name"
+              placeholder="Enter your first name" />
+            <span class="input-error-text" *ngIf="firstName?.touched && firstName?.hasError('required')">First name is required.</span>
+            <span class="input-error-text" *ngIf="firstName?.touched && firstName?.hasError('minlength')">First name must be at least 2 characters.</span>
+            <span class="input-error-text" *ngIf="fieldErrors['firstName']">{{ fieldErrors['firstName'] }}</span>
+          </div>
+
+          <!-- LAST NAME -->
+          <div class="form-input-container">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input
+              id="lastName"
+              class="form-input"
+              type="text"
+              formControlName="lastName"
+              autocomplete="family-name"
+              placeholder="Enter your last name" />
+            <span class="input-error-text" *ngIf="lastName?.touched && lastName?.hasError('required')">Last name is required.</span>
+            <span class="input-error-text" *ngIf="lastName?.touched && lastName?.hasError('minlength')">Last name must be at least 2 characters.</span>
+            <span class="input-error-text" *ngIf="fieldErrors['lastName']">{{ fieldErrors['lastName'] }}</span>
+          </div>
+
+          <!-- PHONE NUMBER -->
+          <div class="form-input-container">
+            <label class="form-label" for="phoneNumber">Phone Number</label>
+            <input
+              id="phoneNumber"
+              class="form-input"
+              type="tel"
+              formControlName="phoneNumber"
+              autocomplete="tel"
+              (input)="onPhoneInput($event)"
+              maxlength="10"
+              placeholder="10-digit number" />
+            <span class="input-error-text" *ngIf="phoneNumber?.touched && phoneNumber?.hasError('required')">Phone number is required.</span>
+            <span class="input-error-text" *ngIf="phoneNumber?.touched && phoneNumber?.hasError('pattern')">Please enter exactly 10 digits.</span>
+            <span class="input-error-text" *ngIf="phoneNumber?.touched && phoneNumber?.hasError('invalidPhone')">Phone number must be 10 digits.</span>
+            <span class="input-error-text" *ngIf="phoneNumber?.touched && phoneNumber?.hasError('invalidPhoneFormat')">Phone number cannot start with 0.</span>
+            <span class="input-error-text" *ngIf="fieldErrors['phoneNumber']">{{ fieldErrors['phoneNumber'] }}</span>
+          </div>
+
+          <!-- EMAIL -->
+          <div class="form-input-container">
+            <label class="form-label" for="email">Email</label>
+            <input
+              id="email"
+              class="form-input"
+              type="email"
+              formControlName="email"
+              autocomplete="email"
+              placeholder="Enter your email" />
+            <span class="input-error-text" *ngIf="email?.touched && email?.hasError('required')">Email is required.</span>
+            <span class="input-error-text" *ngIf="email?.touched && email?.hasError('email')">Enter a valid email.</span>
+            <span class="input-error-text" *ngIf="fieldErrors['email']">{{ fieldErrors['email'] }}</span>
+          </div>
+
+          <!-- PASSWORD with eye icon -->
+          <div class="form-input-container">
+            <label class="form-label" for="password">Password *</label>
+            <div class="password-input-container">
+              <input
+                id="password"
+                class="form-input"
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                autocomplete="new-password"
+                placeholder="Create a strong password (min 8 characters)" />
+              <button
+                class="password-toggle-btn"
+                type="button"
+                (click)="togglePassword()"
+                aria-label="Toggle password visibility">
+                <span class="material-symbols-outlined">
+                  {{ showPassword ? 'visibility_off' : 'visibility' }}
+                </span>
+              </button>
+            </div>
+            <span class="input-error-text" *ngIf="password?.touched && password?.hasError('required')">Password is required.</span>
+            <span class="input-error-text" *ngIf="password?.touched && password?.hasError('minlength')">Password must be at least 8 characters.</span>
+            <span class="input-error-text" *ngIf="fieldErrors['password']">{{ fieldErrors['password'] }}</span>
+          </div>
+
+          <!-- CONFIRM PASSWORD with eye icon -->
+          <div class="form-input-container">
+            <label class="form-label" for="confirmPassword">Confirm Password *</label>
+            <div class="password-input-container">
+              <input
+                id="confirmPassword"
+                class="form-input"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                formControlName="confirmPassword"
+                autocomplete="new-password"
+                placeholder="Confirm your password" />
+              <button
+                class="password-toggle-btn"
+                type="button"
+                (click)="toggleConfirmPassword()"
+                aria-label="Toggle password visibility">
+                <span class="material-symbols-outlined">
+                  {{ showConfirmPassword ? 'visibility_off' : 'visibility' }}
+                </span>
+              </button>
+            </div>
+            <span class="input-error-text" *ngIf="confirmPassword?.touched && confirmPassword?.hasError('required')">Please confirm your password.</span>
+            <span class="input-error-text" *ngIf="registerForm.hasError('passwordMismatch') && confirmPassword?.touched">Passwords do not match.</span>
+          </div>
+
+          <!-- ADMIN REGISTRATION CHECKBOX -->
+          <div class="admin-checkbox">
+            <mat-checkbox formControlName="isAdmin">
+              Register as Admin
+            </mat-checkbox>
+            <p class="checkbox-hint">Check this if you want to register as an administrator</p>
+          </div>
+
+          <!-- Form validation error -->
+          <div *ngIf="errorMessage" class="register-error">
+            {{ errorMessage }}
+          </div>
+
+          <!-- SUBMIT BUTTON -->
+          <div class="actions">
+            <button mat-raised-button class="w-100 grey-button" type="submit" [disabled]="isLoading">
+              {{ isLoading ? 'Creating Account...' : 'CREATE ACCOUNT' }}
+            </button>
+          </div>
+
+        </form>
+
+        <!-- OTP Verification Form -->
+        <div *ngIf="otpSent">
+          <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" autocomplete="off" novalidate>
+
+            <!-- OTP Input Fields -->
+            <div class="otp-section">
+              <h3 class="otp-title">Phone Verification</h3>
+              <p class="otp-description">Enter the 6-digit OTP sent to your phone number ending with <strong>{{ lastFourDigits }}</strong></p>
+
+              <!-- OTP Timer -->
+              <div class="otp-timer" *ngIf="otpExpirationTime > 0">
+                <span class="timer-icon">⏱️</span>
+                OTP expires in {{ otpExpirationTime }} seconds
+              </div>
+
+              <div class="otp-input-container">
+                <div class="otp-inputs">
+                  <input
+                    *ngFor="let i of [0,1,2,3,4,5]; let idx = index"
+                    type="text"
+                    maxlength="1"
+                    class="otp-input"
+                    [formControlName]="'digit' + idx"
+                    (input)="onOtpInput($event, idx)"
+                    (keydown)="onOtpKeyDown($event, idx)"
+                    (paste)="onOtpPaste($event)"
+                    autocomplete="off"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    [attr.aria-label]="'OTP digit ' + (idx + 1)" />
+                </div>
+
+                <div class="otp-error" *ngIf="otpForm.errors?.['incompleteOtp'] && otpForm.touched">
+                  Please enter all 6 digits.
+                </div>
+              </div>
+
+              <!-- Resend OTP Section -->
+              <div class="resend-otp-section">
+                <p class="resend-text">Didn't receive the SMS?</p>
+                <button
+                  type="button"
+                  class="resend-btn"
+                  (click)="resendOtp()"
+                  [disabled]="isResendingOtp || resendCooldown > 0">
+                  {{ isResendingOtp ? 'Resending...' :
+                     resendCooldown > 0 ? 'Resend OTP in ' + resendCooldown + 's' :
+                     'Resend OTP' }}
+                </button>
+                <p class="cooldown-text" *ngIf="resendCooldown > 0">
+                  You can request a new OTP in {{ resendCooldown }} seconds
+                </p>
+              </div>
+
+              <!-- OTP Error Message -->
+              <div *ngIf="otpErrorMessage" class="otp-error-message">
+                {{ otpErrorMessage }}
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="otp-actions">
+                <button mat-raised-button color="primary" class="w-100" type="submit" [disabled]="isVerifyingOtp || otpForm.invalid">
+                  {{ isVerifyingOtp ? 'Verifying...' : 'VERIFY & CREATE ACCOUNT' }}
+                </button>
+
+                <button mat-stroked-button type="button" class="w-100 back-btn" (click)="backToRegistration()">
+                  <span class="material-symbols-outlined">arrow_back</span>
+                  Back to Registration
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- OTP Verification Form (Hidden - logic moved to main form) -->
+        <div *ngIf="false" class="otp-verification">
+          <p class="subtle">We've sent a 6-digit OTP to your phone number ending with <strong>{{ lastFourDigits }}</strong></p>
+
+          <div class="otp-instructions">
+            <p><strong>Important:</strong> Enter the 6-digit OTP sent via SMS to your phone to complete registration. The OTP is valid for 5 minutes.</p>
+          </div>
+
+          <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" autocomplete="off" novalidate>
+
+            <!-- OTP Input Fields -->
+            <div class="otp-input-container">
+              <div class="otp-inputs">
+                <input
+                  *ngFor="let i of [0,1,2,3,4,5]; let idx = index"
+                  type="text"
+                  maxlength="1"
+                  class="otp-input"
+                  [formControlName]="'digit' + idx"
+                  (input)="onOtpInput($event, idx)"
+                  (keydown)="onOtpKeyDown($event, idx)"
+                  (paste)="onOtpPaste($event)"
+                  autocomplete="off"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  [attr.aria-label]="'OTP digit ' + (idx + 1)" />
+              </div>
+
+              <div class="otp-error" *ngIf="otpForm.errors?.['incompleteOtp'] && otpForm.touched">
+                Please enter all 6 digits.
+              </div>
+            </div>
+
+            <!-- Resend OTP Section -->
+            <div class="resend-otp-section">
+              <p class="resend-text">Didn't receive the SMS?</p>
+              <button
+                type="button"
+                class="resend-btn"
+                (click)="resendOtp()"
+                [disabled]="isResendingOtp || resendCooldown > 0">
+                {{ isResendingOtp ? 'Resending...' :
+                   resendCooldown > 0 ? 'Resend OTP in ' + resendCooldown + 's' :
+                   'Resend OTP' }}
+              </button>
+              <p class="cooldown-text" *ngIf="resendCooldown > 0">
+                You can request a new OTP in {{ resendCooldown }} seconds
+              </p>
+            </div>
+
+            <!-- OTP Error Message -->
+            <div *ngIf="otpErrorMessage" class="otp-error-message">
+              {{ otpErrorMessage }}
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="otp-actions">
+              <button mat-raised-button color="primary" class="w-100" type="submit" [disabled]="isVerifyingOtp || otpForm.invalid">
+                {{ isVerifyingOtp ? 'Verifying...' : 'VERIFY & CREATE ACCOUNT' }}
+              </button>
+
+              <button mat-stroked-button type="button" class="w-100 back-btn" (click)="backToRegistration()">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Back to Registration
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- LOGIN LINK -->
+        <div class="login-row" *ngIf="!otpSent">
+          Already have an account?
+          <a href="#" (click)="openLoginModal(); $event.preventDefault()">Login here</a>
+        </div>
+      </div>
+
+      <!-- bottom close (same heavy icon) -->
+      <div class="dialog-actions">
+        <button class="close-btn-bottom" (click)="close()" aria-label="Close dialog">
+          <span class="material-symbols-outlined close-icon-bold">close</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

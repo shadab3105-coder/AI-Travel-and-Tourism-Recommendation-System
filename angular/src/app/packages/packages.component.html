@@ -1,0 +1,94 @@
+<div class="container">
+
+  <!-- TAGLINE -->
+  <div class="hero-box">
+    <h1 class="hero-title">
+      Smart choices, <span class="text-gradient">simplified in packages.</span>
+    </h1>
+    <p class="hero-subtitle">Pick the perfect package with ease.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrapper">
+    <div class="tab"
+         *ngFor="let tab of tabs; let i = index"
+         [class.active]="activeTab === tab.id"
+         (click)="switchTab(tab.id, i)">
+      <i [class]="tab.icon"></i> {{ tab.label }}
+    </div>
+
+    <div class="slider" #slider></div>
+  </div>
+
+  <!-- ================= SEARCH ================= -->
+  <div class="content" *ngIf="activeTab === 'search'">
+
+    <h2>Search Holiday Packages</h2>
+
+    <div class="mmt-search-form">
+
+      <div class="form-row">
+
+        <div class="form-field">
+          <label>From City</label>
+          <input type="text" placeholder="New Delhi" />
+        </div>
+
+        <div class="form-field">
+          <label>To City/Country</label>
+          <input type="text" placeholder="Goa" />
+        </div>
+
+        <div class="form-field">
+          <label>Departure Date</label>
+          <input type="date" />
+        </div>
+
+        <div class="form-field">
+          <label>Rooms & Guests</label>
+          <select>
+            <option>1 Room - 2 Guests</option>
+            <option>2 Rooms - 4 Guests</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Filters</label>
+          <select>
+            <option>Optional</option>
+            <option>Luxury</option>
+            <option>Breakfast Included</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button class="mmt-search-btn">SEARCH</button>
+
+    </div>
+  </div>
+
+  <!-- ================= GROUP PACKAGES ================= -->
+  <div class="content" *ngIf="activeTab === 'group'">
+
+    <div class="category-container">
+      <h2>Choose Your Group Type</h2>
+
+      <div class="category-cards">
+
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" />
+          <h3>Family</h3>
+        </div>
+
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" />
+          <h3>Friends</h3>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

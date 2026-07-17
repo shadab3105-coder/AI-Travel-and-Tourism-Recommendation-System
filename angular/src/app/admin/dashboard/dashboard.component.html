@@ -1,0 +1,189 @@
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Admin Dashboard</h1>
+    <p class="lead text-muted">Manage your travel booking platform</p>
+  </div>
+
+  <!-- Analytics Cards -->
+  <div class="row g-4 mb-5" *ngIf="!loadingAnalytics">
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-4">👥</div>
+          <h3 class="text-primary">{{ analytics.totalUsers || 0 }}</h3>
+          <p class="card-text">Total Users</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-4">📋</div>
+          <h3 class="text-success">{{ analytics.totalBookings || 0 }}</h3>
+          <p class="card-text">Total Bookings</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-4">💰</div>
+          <h3 class="text-warning">${{ analytics.totalRevenue || 0 }}</h3>
+          <p class="card-text">Total Revenue</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-4">✅</div>
+          <h3 class="text-info">{{ analytics.verifiedUsers || 0 }}</h3>
+          <p class="card-text">Verified Users</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="row g-4 mb-5" *ngIf="!loadingAnalytics">
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">User Registrations (Last 12 Months)</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+            [data]="userChartData"
+            [options]="userChartOptions"
+            [type]="userChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">Monthly Revenue</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+            [data]="revenueChartData"
+            [options]="revenueChartOptions"
+            [type]="revenueChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">Booking Status Distribution</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+            [data]="bookingStatusChartData"
+            [options]="bookingStatusChartOptions"
+            [type]="bookingStatusChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-warning text-white">
+          <h5 class="mb-0">Monthly Bookings</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+            [data]="bookingChartData"
+            [options]="bookingChartOptions"
+            [type]="bookingChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loadingAnalytics" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading analytics...</span>
+    </div>
+    <p class="mt-2">Loading dashboard analytics...</p>
+  </div>
+
+  <!-- Management Cards -->
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-3">👥</div>
+          <h4 class="card-title">User Management</h4>
+          <p class="card-text">Manage user accounts and permissions</p>
+          <a routerLink="/admin/users" class="btn btn-primary">Manage Users</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-3">✈️</div>
+          <h4 class="card-title">Flight Management</h4>
+          <p class="card-text">Add, edit, and manage flight schedules</p>
+          <a routerLink="/admin/flights" class="btn btn-primary">Manage Flights</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-3">📋</div>
+          <h4 class="card-title">Booking Management</h4>
+          <p class="card-text">View and manage all bookings</p>
+          <a routerLink="/admin/bookings" class="btn btn-primary">Manage Bookings</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-3">🏨</div>
+          <h4 class="card-title">Hotel Management</h4>
+          <p class="card-text">Manage hotel listings and availability</p>
+          <a routerLink="/admin/hotels" class="btn btn-primary">Manage Hotels</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-3">🚗</div>
+          <h4 class="card-title">Car Management</h4>
+          <p class="card-text">Manage car rental listings</p>
+          <a routerLink="/admin/cars" class="btn btn-primary">Manage Cars</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+        <div class="card-body text-center p-4">
+          <div class="mb-3 display-3">🎯</div>
+          <h4 class="card-title">Package Management</h4>
+          <p class="card-text">Create and manage travel packages</p>
+          <a routerLink="/admin/packages" class="btn btn-primary">Manage Packages</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

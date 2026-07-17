@@ -1,0 +1,232 @@
+/* ================= PAGE BACKGROUND ================= */
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f8fafc; /* Light Slate */
+  
+  /* Abstract Map SVG Pattern */
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23cbd5e1' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+.container {
+  padding-top: 40px;
+  padding-bottom: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ================= HEADERS ================= */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 0 rgba(255,255,255,1);
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Section Divider Title */
+h3 {
+  font-weight: 700;
+  color: #334155;
+  margin-top: 50px;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* ================= MAP WIDGET ================= */
+.map-wrapper {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); /* Floating Shadow */
+  border: 8px solid white;
+  background: white;
+  height: 500px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px; /* Inner radius */
+}
+
+/* ================= PLACES GRID ================= */
+.places-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.place-item {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================= PLACE PHOTO ================= */
+.place-photo-wrapper {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+  background: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.place-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.place-item:hover .place-photo {
+  transform: scale(1.05);
+}
+
+.place-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 2.5rem;
+  color: #cbd5e1;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.place-photo-placeholder span {
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.place-info {
+  padding: 20px 20px 10px 20px;
+  flex: 1;
+}
+
+.directions-btn {
+  margin: 0 20px 20px 20px;
+  width: calc(100% - 40px);
+}
+
+/* Hover Effect: Lift Up & Glow */
+.place-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  border-color: #ffedd5; /* Subtle orange border */
+}
+
+/* Top Accent Line */
+.place-item::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, #ef4136, #fbb040);
+  opacity: 0; transition: opacity 0.3s;
+}
+.place-item:hover::before { opacity: 1; }
+
+/* ================= CARD CONTENT ================= */
+h4 {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.place-address {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.rating-badge {
+  background: #fffbeb;
+  color: #d97706;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+/* ================= BUTTONS ================= */
+.directions-btn {
+  padding: 12px;
+  border-radius: 50px; /* Pill shape */
+  border: 2px solid #ef4136;
+  background: white;
+  color: #ef4136;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.directions-btn:hover {
+  background: linear-gradient(90deg, #ef4136, #fbb040);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 5px 15px rgba(239, 65, 54, 0.3);
+}
+
+/* ================= ERROR / LOADING ================= */
+.error-alert {
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Animations */
+.animate__animated {
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+}
