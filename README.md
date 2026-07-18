@@ -140,7 +140,7 @@ GitHub:
 https://github.com/shadab3105-coder
 
 LinkedIn:
-(Add your LinkedIn profile here)
+https://www.linkedin.com/in/md-shadab-hussain-030904200/
 
 ---
 
