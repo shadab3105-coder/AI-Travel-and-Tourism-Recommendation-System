@@ -9,7 +9,7 @@ async function testRegistration() {
       password: 'password123',
       firstName: 'John',
       lastName: 'Doe',
-      mobileNumber: '+919876543210'
+      mobileNumber: '+91 8240094106'
     });
 
     console.log('✅ Registration response:', response.data);
