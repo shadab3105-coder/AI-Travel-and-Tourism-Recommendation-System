@@ -158,7 +158,7 @@ This project is developed for educational and learning purposes.
 Here is the Live link for this Project:- https://ai-travel-tourism-shadab.netlify.app/ 
 
 Some Screenshot Here for this Project
-<img width="1600" height="696" alt="AI 1" src="https://github.com/user-attachments/assets/efe5fdf6-97af-441d-8fb8-56ab0b33c30a" />
+<img width="1899" height="823" alt="image" src="https://github.com/user-attachments/assets/65340899-7587-47d6-9d78-d1fdb7ee7161" />
 <img width="1600" height="838" alt="AI 2" src="https://github.com/user-attachments/assets/31ffb1d9-b6da-4f19-a3e1-2d5ca3482474" />
 <img width="1600" height="845" alt="AI 3" src="https://github.com/user-attachments/assets/0ac10aae-52d2-4879-b358-fb9e67da62d3" />
 <img width="1600" height="788" alt="AI 4" src="https://github.com/user-attachments/assets/f01d812f-1183-46e2-9589-6f3eae15ef68" />
