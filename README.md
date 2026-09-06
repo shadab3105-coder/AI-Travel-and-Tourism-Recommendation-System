@@ -157,6 +157,8 @@ This project is developed for educational and learning purposes.
 - AviationStack API (Flight Search)
 - Google Maps API
 
+**Note:** The live link below provides a good overview of the project, but some API-based services may not work because API keys/credentials are not published publicly on GitHub for security reasons as Illegal. The complete working project is available locally. Screenshots or a full demonstration can be provided if required.
+
 Here is the Live link for this Project:- https://ai-travel-tourism-shadab.netlify.app/ 
 
 Some Screenshot Here for this Project
